@@ -26,7 +26,7 @@ int existeUsuario(char nombreUsuario[], stCelda usuarios[], int val)
     if(val)
     {
         int i = 0;
-        while(i < val && existe == 0)
+        while(i < val && !existe)
         {
             if(strcmp(usuarios[i].usr.nombreUsuario,nombreUsuario) == 0 && usuarios[i].usr.eliminado == 0) existe = usuarios[i].usr.idUsuario;
             i++;
@@ -35,7 +35,7 @@ int existeUsuario(char nombreUsuario[], stCelda usuarios[], int val)
     return existe;
 }
 
-int agregarUsuario(stCelda usuarios[], int * val)
+int agregarUsuario()
 {
     stUsuario aux;
 
@@ -49,7 +49,7 @@ int agregarUsuario(stCelda usuarios[], int * val)
         fflush(stdin);
         gets(aux.nombreUsuario);
     }
-    while(existeUsuario(aux.nombreUsuario,usuarios,*val))
+    while(existeUsuario(aux.nombreUsuario,usuarios,val))
     {
         printf("\nIngrese el nombre del nuevo usuario (Error: El nombre de usuario que ingreso ya existe):\n");
         fflush(stdin);
@@ -103,18 +103,18 @@ int agregarUsuario(stCelda usuarios[], int * val)
     }*/
 
     aux.eliminado = 0;
-    aux.idUsuario = (*val)+1;
+    aux.idUsuario = val+1;
 
     if(aux.idUsuario == 1) aux.admin = 1;
     else aux.admin = 0;
 
     //Guardamos el usuario en el arreglo luego de redimensionarlo
-    (*val)++;
-    if(*val == 1) dimensionarUsuarios(&usuarios,*val);
-    else redimensionarUsuarios(&usuarios,*val);
-    usuarios[0].usr = aux;
-    usuarios[0].listaPelis = inicLista();
-    ADLToArchivoUsuarios(ARCHIVO_USUARIOS, usuarios, *val);
+    val++;
+    if(val == 1) usuarios = dimensionarUsuarios(usuarios,val);
+    else usuarios = redimensionarUsuarios(usuarios,val);
+    usuarios[aux.idUsuario-1].usr = aux;
+    usuarios[aux.idUsuario-1].listaPelis = inicLista();
+    ADLToArchivoUsuarios(ARCHIVO_USUARIOS);
 
     encabezado("REGISTRO EXITOSO", 0);
     printf("Tu cuenta ha sido registrada exitosamente. Por favor, inicia sesion...\n\n");
@@ -271,7 +271,7 @@ int modificarUsuario(int idUsuario, int acceso, stCelda usuarios[], int val)
             }
 
             usuarios[idUsuario-1].usr = aux;
-            ADLToArchivoUsuarios(ARCHIVO_USUARIOS, usuarios, val);
+            ADLToArchivoUsuarios(ARCHIVO_USUARIOS);
 
             printf("\nSe guardo la modificacion realizada.\n\n");
             system("pause");
@@ -753,12 +753,12 @@ void calculartransversa2x2flotante(int fila, int columna, float matriz[][columna
     }
 }
 
-void archivoUsuariosToADL(const char archivo[], stCelda usuarios[], int * val)
+void archivoUsuariosToADL(const char archivo[])
 {
-    *val = cantidadUsuarios(archivo);
-    if(*val > 0)
+    val = cantidadUsuarios(archivo);
+    if(val > 0)
     {
-        dimensionarUsuarios(&usuarios,*val);
+        usuarios = dimensionarUsuarios(usuarios,val);
         stUsuario aux;
         int i = 0;
         FILE *archi;
@@ -771,25 +771,24 @@ void archivoUsuariosToADL(const char archivo[], stCelda usuarios[], int * val)
                 usuarios[i].listaPelis = inicLista();
                 i++;
             }
-            *val = i;
             fclose(archi);
         }
     }
 }
 
-void dimensionarUsuarios(stCelda ** usuarios, int cant)
+stCelda * dimensionarUsuarios(stCelda usuarios[], int cant)
 {
-    *usuarios = calloc(cant, sizeof(stCelda));
+    usuarios = calloc(cant, sizeof(stCelda));
     return usuarios;
 }
 
-void redimensionarUsuarios(stCelda ** usuarios, int cant)
+stCelda * redimensionarUsuarios(stCelda usuarios[], int cant)
 {
-    *usuarios = realloc(*usuarios, sizeof(stCelda)*cant);
+    usuarios = realloc(usuarios, sizeof(stCelda)*cant);
     return usuarios;
 }
 
-void ADLToArchivoUsuarios(const char archivo[], stCelda usuarios[], int val)
+void ADLToArchivoUsuarios(const char archivo[])
 {
     if(val)
     {
