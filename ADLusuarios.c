@@ -110,8 +110,10 @@ int agregarUsuario(stCelda usuarios[], int * val)
 
     //Guardamos el usuario en el arreglo luego de redimensionarlo
     (*val)++;
-    redimensionarUsuarios(usuarios,*val);
-    usuarios[(aux.idUsuario)-1].usr = aux;
+    if(*val == 1) dimensionarUsuarios(&usuarios,*val);
+    else redimensionarUsuarios(&usuarios,*val);
+    usuarios[0].usr = aux;
+    usuarios[0].listaPelis = inicLista();
     ADLToArchivoUsuarios(ARCHIVO_USUARIOS, usuarios, *val);
 
     encabezado("REGISTRO EXITOSO", 0);
@@ -751,17 +753,12 @@ void calculartransversa2x2flotante(int fila, int columna, float matriz[][columna
     }
 }
 
-void redimensionarUsuarios(stCelda usuarios[], int cant)
-{
-    stCelda * usuariosre = realloc(usuarios, sizeof(stCelda)*cant); // redimensionamos el tamaño de nuestro arreglo
-    if(usuariosre != NULL) usuarios = usuariosre;
-}
-
 void archivoUsuariosToADL(const char archivo[], stCelda usuarios[], int * val)
 {
-    if(cantidadUsuarios(archivo) > 0)
+    *val = cantidadUsuarios(archivo);
+    if(*val > 0)
     {
-        redimensionarUsuarios(usuarios,*val);
+        dimensionarUsuarios(&usuarios,*val);
         stUsuario aux;
         int i = 0;
         FILE *archi;
@@ -778,6 +775,18 @@ void archivoUsuariosToADL(const char archivo[], stCelda usuarios[], int * val)
             fclose(archi);
         }
     }
+}
+
+void dimensionarUsuarios(stCelda ** usuarios, int cant)
+{
+    *usuarios = calloc(cant, sizeof(stCelda));
+    return usuarios;
+}
+
+void redimensionarUsuarios(stCelda ** usuarios, int cant)
+{
+    *usuarios = realloc(*usuarios, sizeof(stCelda)*cant);
+    return usuarios;
 }
 
 void ADLToArchivoUsuarios(const char archivo[], stCelda usuarios[], int val)
