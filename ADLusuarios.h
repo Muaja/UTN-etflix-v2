@@ -9,7 +9,6 @@
 /* Funciones usuarios */
 int agregarPeliculaToUsuario(stCelda usuarios[],int val, int idUsuario, int idPelicula );
 void limpiarArregloDeListas(stCelda usuarios[], int val);
-void persistirPeliculasVistas(stCelda usuarios[], int val, char archivo[]);
 
 stCelda * dimensionarUsuarios(stCelda usuarios[], int cant);
 stCelda * redimensionarUsuarios(stCelda usuarios[], int cant);
