@@ -70,9 +70,9 @@ static const int INTENTOS_MAXIMOS = 3;
 
 nodoListaPelicula * listaP;
 nodoArbolPelicula * arbolP;
-stCelda usuarios[1];
+stCelda * usuarios;
 int val;
-stPelisVistas pelisvistas[1];
+stPelisVistas * pelisvistas;
 int valpv;
 int sesion;
 
