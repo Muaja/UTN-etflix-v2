@@ -405,8 +405,10 @@ void mostrarSoloPelisActivas(nodoListaPelicula * listaP)
 {
     if(listaP!=NULL)
     {
-        if(listaP->p.eliminado==0)
+        if(listaP->p.eliminado == 0)
+        {
             mostrarUnaPelicula(listaP->p);
             mostrarTodasLasPelis(listaP->sig);
+        }
     }
 }
