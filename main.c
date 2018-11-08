@@ -29,7 +29,7 @@ void preCarga()
 
 void preCargaUsuarios()
 {
-    archivoUsuariosToADL(ARCHIVO_USUARIOS,usuarios,&val);
+    archivoUsuariosToADL(ARCHIVO_USUARIOS);
 }
 
 void preCargaPeliculas()
