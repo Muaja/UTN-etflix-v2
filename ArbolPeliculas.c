@@ -193,7 +193,7 @@ nodoArbolPelicula * NMD(nodoArbolPelicula * arbol)
     return rta;
 }
 
-nodoArbolPelicula * archivoAArbolPelis(char archivo[], nodoArbolPelicula * arbolP)
+nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbolP)
 {
     FILE *archi;
     archi = fopen(archivo,"rb");
