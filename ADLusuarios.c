@@ -68,7 +68,7 @@ int altaUsuario()
     }
     encriptarPass(pass, aux.pass);
 
-    /*aux.anioNacimiento=0;
+    aux.anioNacimiento=0;
     printf("\n\nInformacion adicional:\n\nIngrese anio de nacimiento:\n");
     fflush(stdin);
     scanf("%i", &aux.anioNacimiento);
@@ -100,7 +100,7 @@ int altaUsuario()
         printf("\nIngrese la nacionalidad (Error: El campo nacionalidad no puede estar vacio):\n");
         fflush(stdin);
         gets(aux.pais);
-    }*/
+    }
 
     aux.eliminado = 0;
     aux.idUsuario = val+1;
