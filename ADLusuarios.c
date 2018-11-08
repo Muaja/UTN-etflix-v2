@@ -35,7 +35,7 @@ int existeUsuario(char nombreUsuario[], stCelda usuarios[], int val)
     return existe;
 }
 
-int agregarUsuario()
+int altaUsuario()
 {
     stUsuario aux;
 
@@ -538,7 +538,7 @@ int loginUsuario(stCelda usuarios[], int val)
         printf("Error: Aun no se han creado usuarios.");
         system("pause");
         encabezado("REGISTRO USUARIO","USUARIO");
-        agregarUsuario(usuarios,&val);
+        altaUsuario();
     }
     else
     {

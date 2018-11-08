@@ -17,7 +17,7 @@ void archivoUsuariosToADL(const char archivo[]);
 void ADLToArchivoUsuarios(const char archivo[]);
 int cantidadUsuarios(const char archivo[]);
 int existeUsuario(char nombreUsuario[], stCelda * usuarios, int val);
-int agregarUsuario();
+int altaUsuario();
 int eliminarUsuario(int idUsuario, stCelda usuarios[], int val);
 int buscarUsuario(stCelda usuarios[], int val, int idUsuario);
 int esAdministrador(int idUsuario, stCelda usuarios[], int val);

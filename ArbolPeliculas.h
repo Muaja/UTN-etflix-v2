@@ -20,6 +20,7 @@ int alturaArbol(nodoArbolPelicula * arbol);
 nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int legajo);
 nodoArbolPelicula * NMI(nodoArbolPelicula * arbol);
 nodoArbolPelicula * NMD(nodoArbolPelicula * arbol);
-void cargarArbolDesdeArchivo(nodoArbolPelicula * arbol, char archivo[]);
+nodoArbolPelicula * archivoAArbolPelis(char archivo[], nodoArbolPelicula * arbolP);
+nodoArbolPelicula * archivoAArbolPelisR(char archivo[], nodoArbolPelicula * arbolP);
 
 #endif // ARBOLPELICULAS_H_INCLUDED

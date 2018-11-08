@@ -4,6 +4,7 @@ nodoArbolPelicula * inicArbol()
 {
     return NULL;
 }
+
 nodoArbolPelicula * crearnodoArbolPelicula(stPelicula pelicula)
 {
     nodoArbolPelicula * aux = (nodoArbolPelicula *) malloc(sizeof(nodoArbolPelicula));
@@ -12,6 +13,7 @@ nodoArbolPelicula * crearnodoArbolPelicula(stPelicula pelicula)
     aux->izq=NULL;
     return aux;
 }
+
 nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicula * nuevo)
 {
     if(!arbol)
@@ -25,6 +27,7 @@ nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicu
     }
     return arbol;
 }
+
 void MostarArbolPreorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
@@ -35,6 +38,7 @@ void MostarArbolPreorder(nodoArbolPelicula * arbol)
     }
 
 }
+
 void MostrarArbolInorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
@@ -44,6 +48,7 @@ void MostrarArbolInorder(nodoArbolPelicula * arbol)
         MostrarArbolInorder(arbol->der);
     }
 }
+
 void MostarArbolPostorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
@@ -53,6 +58,7 @@ void MostarArbolPostorder(nodoArbolPelicula * arbol)
         printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
     }
 }
+
 nodoArbolPelicula * buscarPelicula(nodoArbolPelicula * arbol, int idPelicula)
 {
     nodoArbolPelicula * rta = NULL;
@@ -73,6 +79,7 @@ nodoArbolPelicula * buscarPelicula(nodoArbolPelicula * arbol, int idPelicula)
     }
     return rta;
 }
+
 nodoArbolPelicula * buscarNombre(nodoArbolPelicula * arbol, char nombre[])
 {
     nodoArbolPelicula * rta=NULL;
@@ -90,16 +97,19 @@ nodoArbolPelicula * buscarNombre(nodoArbolPelicula * arbol, char nombre[])
     }
     return rta;
 }
+
 int nodosArbol(nodoArbolPelicula * arbol)
 {
     int rta = 0;
     if(arbol) rta = 1 + nodosArbol(arbol->izq) + nodosArbol(arbol->der);
     return rta;
 }
+
 int hojaArbol(nodoArbolPelicula * arbol)
 {
     return (!(arbol->der) && !(arbol->izq));
 }
+
 int hojasArbol(nodoArbolPelicula * arbol)
 {
     int rta = 0;
@@ -110,6 +120,7 @@ int hojasArbol(nodoArbolPelicula * arbol)
     }
     return rta;
 }
+
 int alturaArbol(nodoArbolPelicula * arbol)
 {
     int rta = 0;
@@ -122,6 +133,7 @@ int alturaArbol(nodoArbolPelicula * arbol)
     }
     return rta;
 }
+
 nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int idPelicula)
 {
     nodoArbolPelicula * rta = NULL;
@@ -158,6 +170,7 @@ nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int idPelicula)
     }
     return arbol;
 }
+
 nodoArbolPelicula * NMI(nodoArbolPelicula * arbol)
 {
     nodoArbolPelicula * rta = NULL;
@@ -168,12 +181,13 @@ nodoArbolPelicula * NMI(nodoArbolPelicula * arbol)
     }
     return rta;
 }
+
 nodoArbolPelicula * NMD(nodoArbolPelicula * arbol)
 {
     nodoArbolPelicula * rta = NULL;
     if(arbol)
     {
-        if(arbol->der)  rta = NMD(arbol->der);
+        if(arbol->der) rta = NMD(arbol->der);
         else rta = arbol;
     }
     return rta;

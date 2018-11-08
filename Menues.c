@@ -44,7 +44,7 @@ void menuInicio()
         case 2:
         {
             encabezado("REGISTRO USUARIO","MENU REGISTRO");
-            if(agregarUsuario(usuarios,&val)) menuInicio();
+            if(altaUsuario()) menuInicio();
             break;
         }
         case 3:
@@ -544,7 +544,7 @@ void menuAdministrarUsuarios()
         case 1:
         {
             encabezado("ALTA USUARIO","ADMINISTRADOR");
-            agregarUsuario(usuarios,&val);
+            altaUsuario();
             menuAdministrarUsuarios();
             break;
         }

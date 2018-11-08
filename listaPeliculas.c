@@ -1,5 +1,41 @@
 #include "listaPeliculas.h"
 
+int cantidadPeliculas(nodoListaPelicula * listaP)
+{
+    int numero = 0;
+    if(listaP != NULL)
+    {
+        numero = cantidadPeliculas(listaP->sig) + 1;
+    }
+    return numero;
+}
+
+void mostrarUnaPelicula(stPelicula pelicula)
+{
+    printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",pelicula.idPelicula,pelicula.nombrePelicula,pelicula.director,pelicula.genero,pelicula.anio,pelicula.pais,pelicula.pm,pelicula.valoracion);
+}
+
+void mostrarTodasLasPelis(nodoListaPelicula * listaP)
+{
+    if(listaP!=NULL)
+    {
+        mostrarUnaPelicula(listaP->p);
+        mostrarTodasLasPelis(listaP->sig);
+    }
+}
+
+void mostrarSoloPelisActivas(nodoListaPelicula * listaP)
+{
+    if(listaP!=NULL)
+    {
+        if(listaP->p.eliminado == 0)
+        {
+            mostrarUnaPelicula(listaP->p);
+            mostrarTodasLasPelis(listaP->sig);
+        }
+    }
+}
+
 nodoListaPelicula *inicLista()
 {
     return NULL;
@@ -66,9 +102,10 @@ stPelicula altaPelicula(nodoListaPelicula * listaP)
 
     return aux;
 }
+
 void modificarPelicula(int idPelicula, nodoListaPelicula ** listaP)
 {
-    nodoListaPelicula* aux = buscarPeliID(&listaP,idPelicula);
+    nodoListaPelicula * aux = buscarPeliID(&listaP,idPelicula);
 
     int opcion = 0;
 
@@ -162,7 +199,52 @@ void modificarPelicula(int idPelicula, nodoListaPelicula ** listaP)
         modificarPelicula(listaP,idPelicula);
     }
 }
-nodoListaPelicula *agregarPeliPpio(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo)
+
+nodoListaPelicula * cargarNodosPpio (nodoListaPelicula* listaP)
+{
+    nodoListaPelicula * nuevoNodo;
+    char cont= 's';
+    stPelicula aux;
+    while (cont=='s')
+    {
+
+        aux = altaPelicula(listaP);
+
+        nuevoNodo = crearNodo(aux);
+
+        listaP = insertarPeliPpio(listaP, nuevoNodo);
+
+        printf("desea continuar s/n");
+        fflush(stdin);
+        scanf("%c",&cont);
+        printf("\n");
+    }
+    return listaP;
+}
+
+nodoListaPelicula * cargarNodosFinal(nodoListaPelicula* listaP)
+{
+    nodoListaPelicula * nuevoNodo;
+    char cont= 's';
+    stPelicula aux;
+    while(cont=='s')
+    {
+
+        aux = altaPelicula(listaP);
+
+        nuevoNodo = crearNodo(aux);
+
+        listaP = insertarPeliFinal(listaP, nuevoNodo);
+
+        printf("Desea continuar s/n");
+        fflush(stdin);
+        scanf("%c",&cont);
+        printf("\n");
+    }
+    return listaP;
+}
+
+nodoListaPelicula *insertarPeliPpio(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo)
 {
     if(listaP==NULL)
     {
@@ -175,49 +257,8 @@ nodoListaPelicula *agregarPeliPpio(nodoListaPelicula * listaP, nodoListaPelicula
     }
     return listaP;
 }
-nodoListaPelicula * cargarNodosPpio (nodoListaPelicula* listaP)
-{
-    nodoListaPelicula * nuevoNodo;
-    char cont= 's';
-    stPelicula aux;
-    while (cont=='s')
-    {
 
-        aux=altaPelicula(listaP);
-
-        nuevoNodo=crearNodo(aux);
-
-        listaP= agregarPeliPpio(listaP, nuevoNodo);
-
-        printf("desea continuar s/n");
-        fflush(stdin);
-        scanf("%c",&cont);
-        printf("\n");
-    }
-    return listaP;
-}
-nodoListaPelicula * cargarNodosFinalPpio (nodoListaPelicula* listaP)
-{
-    nodoListaPelicula * nuevoNodo;
-    char cont= 's';
-    stPelicula aux;
-    while (cont=='s')
-    {
-
-        aux=altaPelicula(listaP);
-
-        nuevoNodo=crearNodo(aux);
-
-        listaP= agregarPeliFinal(listaP, nuevoNodo);
-
-        printf("desea continuar s/n");
-        fflush(stdin);
-        scanf("%c",&cont);
-        printf("\n");
-    }
-    return listaP;
-}
-nodoListaPelicula * agregarPeliFinal(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo)
+nodoListaPelicula * insertarPeliFinal(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo)
 {
     if(listaP==NULL)
     {
@@ -230,6 +271,29 @@ nodoListaPelicula * agregarPeliFinal(nodoListaPelicula * listaP, nodoListaPelicu
     }
     return listaP;
 }
+
+nodoListaPelicula * insertarPeliOrden(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo)
+{
+    if(listaP != NULL)
+    {
+        if(listaP->p.idPelicula > nuevoNodo->p.idPelicula)
+        {
+            listaP = (nodoListaPelicula *)insertarPeliOrden(listaP->sig, nuevoNodo);
+        }
+        else
+        {
+            nodoListaPelicula * aux = listaP->sig;
+            listaP->sig = nuevoNodo;
+            nuevoNodo->sig = aux;
+        }
+    }
+    else
+    {
+        listaP = nuevoNodo;
+    }
+    return listaP;
+}
+
 nodoListaPelicula * buscarUltimo(nodoListaPelicula * listaP)
 {
     nodoListaPelicula * seg = listaP;
@@ -243,6 +307,7 @@ nodoListaPelicula * buscarUltimo(nodoListaPelicula * listaP)
 
     return seg;
 }
+
 nodoListaPelicula * borrarPelicula(nodoListaPelicula * listaP, int id)
 {
     if(listaP != NULL)
@@ -270,27 +335,7 @@ nodoListaPelicula * borrarPelicula(nodoListaPelicula * listaP, int id)
     }
     return listaP;
 }
-nodoListaPelicula * insertarPeliOrden(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo)
-{
-    if(listaP != NULL)
-    {
-        if(listaP->p.idPelicula > nuevoNodo->p.idPelicula)
-        {
-            listaP = (nodoListaPelicula *)insertarPeliOrden(listaP->sig, nuevoNodo);
-        }
-        else
-        {
-            nodoListaPelicula * aux = listaP->sig;
-            listaP->sig = nuevoNodo;
-            nuevoNodo->sig = aux;
-        }
-    }
-    else
-    {
-        listaP = nuevoNodo;
-    }
-    return listaP;
-}
+
 int existePelicula(nodoListaPelicula * listaP, char nombre[])
 {
     int flag = 0;
@@ -304,6 +349,7 @@ int existePelicula(nodoListaPelicula * listaP, char nombre[])
     }
     return flag;
 }
+
 nodoListaPelicula * buscarPeliID(int idPelicula,nodoListaPelicula * listaP)
 {
     nodoListaPelicula * aux;
@@ -324,6 +370,7 @@ nodoListaPelicula * buscarPeliID(int idPelicula,nodoListaPelicula * listaP)
     }
     return aux;
 }
+
 int eliminarPelicula(nodoListaPelicula * listaP, int idPelicula)
 {
     int flag = 0;
@@ -342,73 +389,43 @@ int eliminarPelicula(nodoListaPelicula * listaP, int idPelicula)
     }
     return flag;
 }
-int cantidadPeliculas(nodoListaPelicula * listaP)
-{
-    int numero = 0;
-    if(listaP != NULL)
-    {
-        numero = cantidadPeliculas(listaP->sig) + 1;
-    }
-    return numero;
-}
-nodoListaPelicula * archivoALista(nodoListaPelicula * listaP)
+
+nodoListaPelicula * archivoAListaPelis(char archivo[], nodoListaPelicula * listaP)
 {
     FILE *archi;
-    archi = fopen(ARCHIVO_PELICULAS,"rb");
+    archi = fopen(archivo, "rb");
     if(archi != NULL)
     {
-        listaP = archivoAListaOrdenado(listaP,archi);
+        listaP = archivoAListaPelisR(listaP,archi);
         fclose(archi);
     }
     return listaP;
 }
-nodoListaPelicula * archivoAListaOrdenado(nodoListaPelicula * listaP,FILE* archi)
+
+nodoListaPelicula * archivoAListaPelisR(FILE* archi, nodoListaPelicula * listaP)
 {
     stPelicula aux;
     nodoListaPelicula * nuevo = NULL;
     if(fread(&aux,sizeof(stPelicula),1,archi) > 0)
     {
         nuevo = crearNodo(aux);
-        nuevo->sig = archivoAListaOrdenado(listaP, archi);
+        nuevo->sig = archivoAListaPelisR(listaP, archi);
     }
     return nuevo;
 }
-void pasarPeliculasTOarchivo(nodoListaPelicula *listaP)
+
+void listaPelisAArchivo(nodoListaPelicula *listaP)
 {
     FILE *archi;
     archi = fopen(ARCHIVO_PELICULAS,"ab");
     if(archi!=NULL)
     {
         nodoListaPelicula * seg=listaP;
-        while (seg!=NULL)
+        while(seg!=NULL)
         {
             fwrite(&seg->p,sizeof(stPelicula),1,archi);
-            seg=seg->sig;
+            seg = seg->sig;
         }
         fclose(archi);
-    }
-}
-
-void mostrarUnaPelicula(stPelicula pelicula)
-{
-    printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",pelicula.idPelicula,pelicula.nombrePelicula,pelicula.director,pelicula.genero,pelicula.anio,pelicula.pais,pelicula.pm,pelicula.valoracion);
-}
-void mostrarTodasLasPelis(nodoListaPelicula * listaP)
-{
-    if(listaP!=NULL)
-    {
-        mostrarUnaPelicula(listaP->p);
-        mostrarTodasLasPelis(listaP->sig);
-    }
-}
-void mostrarSoloPelisActivas(nodoListaPelicula * listaP)
-{
-    if(listaP!=NULL)
-    {
-        if(listaP->p.eliminado == 0)
-        {
-            mostrarUnaPelicula(listaP->p);
-            mostrarTodasLasPelis(listaP->sig);
-        }
     }
 }

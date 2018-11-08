@@ -36,7 +36,8 @@ void preCargaPeliculas()
 {
     listaP = inicLista();
     arbolP = inicArbol();
-    listaP = archivoALista(listaP);
+    listaP = archivoAListaPelis(ARCHIVO_PELICULAS, listaP);
+    //arbolP = archivoAArbolPelis(ARCHIVO_PELICULAS, arbolP);
 }
 
 void preCargaPelisVistas()
