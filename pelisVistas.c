@@ -17,21 +17,22 @@ int cargarADLpelisVistas(stPelisVistas pelisVistas[], int val, stPelisVistas dat
     pelisVistas=realloc(pelisVistas,(val+1)*(sizeof(stPelisVistas)));///reacondiciona el tamaño del arreglo
     val++;
     pelisVistas[val-1]=datos;///datos es la struct que se pasa por archivo
-    pasarPeliListaToListaUser(datos.idPelicula,datos.idUsuario,listaP,user,cantUser);
-
+    pasarPeliListaToListaUser(datos.idPelicula,datos.idUsuario,listaP);
     return val;
 }
 
 ///Pasa la nueva pelivista al struc de usuario.
-void pasarPeliListaToListaUser(int idPelicula,int idUser, nodoListaPelicula * listaP, stCelda user[],int cantUser)
+void pasarPeliListaToListaUser(int idPelicula,int idUser, nodoListaPelicula * listaP)
 {
-    for (int i = 0; i<cantUser && idUser != user[i].usr.idUsuario; i++)
+    int i = 0;
+    while(i < val && idUser != usuarios[i].usr.idUsuario)
     {
-        if(idUser == user[i].usr.idUsuario)
+        if(idUser == usuarios[i].usr.idUsuario)
         {
-            nodoListaPelicula * aux=buscarPeliID(idPelicula,listaP);
-            user[i].listaPelis=crearNodo(aux->p);
+            nodoListaPelicula * aux = buscarPeliID(idPelicula,listaP);
+            usuarios[i].listaPelis = crearNodoListaPelicula(aux->p);
         }
+        i++;
     }
 }
 
@@ -51,8 +52,6 @@ void pasarArchivoPelisVistaToADL(stPelisVistas pelisVistas[], int val, nodoLista
     }
 
 }///hacer un ftell para saber la cantidad de registros y evitar el uso de realloc
-
-
 
 ///FUNCIONES ADL A ARCHIVO
 
