@@ -29,7 +29,7 @@ void pasarPeliListaToListaUser(int idPelicula,int idUser, nodoListaPelicula * li
     {
         if(idUser == usuarios[i].usr.idUsuario)
         {
-            nodoListaPelicula * aux = buscarPeliID(idPelicula,listaP);
+            nodoListaPelicula * aux = buscarListaPeliID(idPelicula,listaP);
             usuarios[i].listaPelis = crearNodoListaPelicula(aux->p);
         }
         i++;
