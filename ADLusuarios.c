@@ -20,7 +20,7 @@ int cantidadUsuarios(const char archivo[])
     return cantidad; //Se retorna el contador para luego usarlo en la funcion altaUsuario.
 }
 
-int existeUsuario(char nombreUsuario[], stCelda usuarios[], int val)
+int existeUsuario(char nombreUsuario[])
 {
     int existe = 0;
     if(val)
@@ -49,7 +49,7 @@ int altaUsuario()
         fflush(stdin);
         gets(aux.nombreUsuario);
     }
-    while(existeUsuario(aux.nombreUsuario,usuarios,val))
+    while(existeUsuario(aux.nombreUsuario))
     {
         printf("\nIngrese el nombre del nuevo usuario (Error: El nombre de usuario que ingreso ya existe):\n");
         fflush(stdin);
@@ -214,7 +214,7 @@ int modificarUsuario(int idUsuario, int acceso, stCelda usuarios[], int val)
                     printf("\nIngrese el nuevo nombre de usuario: ");
                     fflush(stdin);
                     gets(aux.nombreUsuario);
-                    while(existeUsuario(aux.nombreUsuario,usuarios,val))
+                    while(existeUsuario(aux.nombreUsuario))
                     {
                         printf("\nIngrese el nuevo nombre del nuevo usuario (Error: El usuario ya existe): ");
                         fflush(stdin);
@@ -547,13 +547,13 @@ int loginUsuario(stCelda usuarios[], int val)
         printf("\nIngrese el nombre de usuario:\n");
         fflush(stdin);
         gets(nombreUsuario);
-        idUsuario = existeUsuario(nombreUsuario,usuarios,val);
+        idUsuario = existeUsuario(nombreUsuario);
         while(!idUsuario)
         {
             printf("\nIngrese el nombre de usuario (Error: El usuario no existe.):\n");
             fflush(stdin);
             gets(nombreUsuario);
-            idUsuario = existeUsuario(nombreUsuario,usuarios,val);
+            idUsuario = existeUsuario(nombreUsuario);
         }
         aux = usuarios[idUsuario-1].usr;
 
