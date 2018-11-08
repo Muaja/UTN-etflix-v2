@@ -763,7 +763,7 @@ void reproductor()
 
 void salir()
 {
-    ADLToArchivoUsuarios(ARCHIVO_USUARIOS, usuarios, val);
+    ADLToArchivoUsuarios(ARCHIVO_USUARIOS);
     system("cls");
     printf("Saliendo a Windows, gracias por utilizar UTN-etflix...");
     exit(EXIT_SUCCESS);
