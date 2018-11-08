@@ -41,11 +41,11 @@ nodoListaPelicula *inicLista()
     return NULL;
 }
 
-nodoListaPelicula * crearNodo (stPelicula nuevo)
+nodoListaPelicula * crearNodoListaPelicula(stPelicula nuevo)
 {
-    nodoListaPelicula*aux=(nodoListaPelicula*)malloc(sizeof(nodoListaPelicula));
-    aux->p=nuevo;
-    aux->sig=NULL;
+    nodoListaPelicula*aux = (nodoListaPelicula*)malloc(sizeof(nodoListaPelicula));
+    aux->p = nuevo;
+    aux->sig = NULL;
     return aux;
 }
 
@@ -210,7 +210,7 @@ nodoListaPelicula * cargarNodosPpio (nodoListaPelicula* listaP)
 
         aux = altaPelicula(listaP);
 
-        nuevoNodo = crearNodo(aux);
+        nuevoNodo = crearNodoListaPelicula(aux);
 
         listaP = insertarPeliPpio(listaP, nuevoNodo);
 
@@ -232,7 +232,7 @@ nodoListaPelicula * cargarNodosFinal(nodoListaPelicula* listaP)
 
         aux = altaPelicula(listaP);
 
-        nuevoNodo = crearNodo(aux);
+        nuevoNodo = crearNodoListaPelicula(aux);
 
         listaP = insertarPeliFinal(listaP, nuevoNodo);
 
@@ -396,22 +396,15 @@ nodoListaPelicula * archivoAListaPelis(char archivo[], nodoListaPelicula * lista
     archi = fopen(archivo, "rb");
     if(archi != NULL)
     {
-        listaP = archivoAListaPelisR(listaP,archi);
+        stPelicula aux;
+        while(fread(&aux, sizeof(stPelicula), 1, archi) > 0 && !(aux.eliminado)) //recorro el archivo de peliculas
+        {
+            nodoListaPelicula * nuevo = crearNodoListaPelicula(aux);
+            listaP = insertarPeliFinal(arbolP,nuevo);
+        }
         fclose(archi);
     }
     return listaP;
-}
-
-nodoListaPelicula * archivoAListaPelisR(FILE* archi, nodoListaPelicula * listaP)
-{
-    stPelicula aux;
-    nodoListaPelicula * nuevo = NULL;
-    if(fread(&aux,sizeof(stPelicula),1,archi) > 0)
-    {
-        nuevo = crearNodo(aux);
-        nuevo->sig = archivoAListaPelisR(listaP, archi);
-    }
-    return nuevo;
 }
 
 void listaPelisAArchivo(nodoListaPelicula *listaP)

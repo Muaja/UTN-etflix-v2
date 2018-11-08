@@ -14,7 +14,7 @@ void mostrarTodasLasPelis(nodoListaPelicula * listaP);
 void mostrarSoloPelisActivas(nodoListaPelicula * listaP);
 
 nodoListaPelicula * inicLista();
-nodoListaPelicula * crearNodo(stPelicula nuevo);
+nodoListaPelicula * crearNodoListaPelicula(stPelicula nuevo);
 nodoListaPelicula * cargarNodosPpio(nodoListaPelicula* listaP);
 nodoListaPelicula * cargarNodosFinal(nodoListaPelicula* listaP);
 nodoListaPelicula * insertarPeliPpio(nodoListaPelicula * listaP, nodoListaPelicula * nuevoNodo);
@@ -23,7 +23,6 @@ nodoListaPelicula * insertarPeliFinal(nodoListaPelicula * listaP, nodoListaPelic
 nodoListaPelicula * buscarUltimo(nodoListaPelicula * listaP);
 nodoListaPelicula * buscarPeliID(int idPelicula,nodoListaPelicula * listaP);
 nodoListaPelicula * archivoAListaPelis(char archivo[], nodoListaPelicula * listaP);
-nodoListaPelicula * archivoAListaPelisR(FILE * archi, nodoListaPelicula * listaP);
 void listaPelisAArchivo(nodoListaPelicula *listaP);
 
 #endif // LISTAPELICULAS_H_INCLUDED
