@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Estructuras.h"
+#include "listaPeliculas.h"
 
 nodoArbolPelicula * inicArbol();
-nodoArbolPelicula * crearnodoArbolPelicula(stPelicula pelicula);
+nodoArbolPelicula * crearNodoArbolPelicula(stPelicula pelicula);
 nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicula * nuevo);
 void MostarArbolPreorder(nodoArbolPelicula * arbol);
 void MostrarArbolInorder(nodoArbolPelicula * arbol);
@@ -21,6 +22,9 @@ nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int legajo);
 nodoArbolPelicula * NMI(nodoArbolPelicula * arbol);
 nodoArbolPelicula * NMD(nodoArbolPelicula * arbol);
 nodoArbolPelicula * archivoAArbolPelis(char archivo[], nodoArbolPelicula * arbolP);
-nodoArbolPelicula * archivoAArbolPelisR(char archivo[], nodoArbolPelicula * arbolP);
+nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbolP);
+nodoArbolPelicula * recargarArbol(nodoArbolPelicula * arbol);
+nodoArbolPelicula * arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i);
+nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbolP);
 
 #endif // ARBOLPELICULAS_H_INCLUDED

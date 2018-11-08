@@ -5,7 +5,7 @@ nodoArbolPelicula * inicArbol()
     return NULL;
 }
 
-nodoArbolPelicula * crearnodoArbolPelicula(stPelicula pelicula)
+nodoArbolPelicula * crearNodoArbolPelicula(stPelicula pelicula)
 {
     nodoArbolPelicula * aux = (nodoArbolPelicula *) malloc(sizeof(nodoArbolPelicula));
     aux->p = pelicula;
@@ -193,18 +193,75 @@ nodoArbolPelicula * NMD(nodoArbolPelicula * arbol)
     return rta;
 }
 
-void cargarArbolDesdeArchivo(nodoArbolPelicula * arbol, char archivo[])
+nodoArbolPelicula * archivoAArbolPelis(char archivo[], nodoArbolPelicula * arbolP)
 {
-    stPelicula aux;
     FILE *archi;
-    archi = fopen(ARCHIVO_PELICULAS,"rb");
+    archi = fopen(archivo,"rb");
     if(archi != NULL)
     {
+        stPelicula aux;
         while(fread(&aux, sizeof(stPelicula), 1, archi) > 0 && !(aux.eliminado)) //recorro el archivo de peliculas
         {
-            nodoArbolPelicula * nuevo = crearnodoArbolPelicula(aux);
-            arbol = insertarNodoArbol(arbol,nuevo);
+            nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
+            arbolP = insertarNodoArbol(arbolP,nuevo);
         }
         fclose(archi);
     }
+    return arbolP;
+}
+
+nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbolP)
+{
+    nodoArbolPelicula * mejor = NULL;
+    if(!hojaArbol(arbolP))
+    {
+        nodoArbolPelicula * nmi = NMD(arbolP);
+        nodoArbolPelicula * nmd = NMD(arbolP);
+        int difidmejor = (nmd->p.idPelicula-nmi->p.idPelicula)/2;
+        if(difidmejor != 0)
+        {
+            int idmejor = nmi->p.idPelicula+difidmejor;
+            mejor = buscarPelicula(arbolP,idmejor);
+        }
+    }
+    return mejor;
+}
+
+nodoArbolPelicula * recargarArbol(nodoArbolPelicula * arbol)
+{
+    int cant = nodosArbol(arbolP);
+    stPelicula peliculas[cant];
+    arbol = arbolAArreglo(arbol, peliculas, 0);
+    for(int i = 0; i < cant; i++)
+    {
+        arbol = insertarNodoArbol(arbol,crearNodoArbolPelicula(peliculas[i]));
+    }
+}
+
+nodoArbolPelicula * arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i)
+{
+    if(arbol)
+    {
+        peliculas[i] = arbol->p;
+        arbol = arbolAArreglo(arbol->der, peliculas, i+1);
+        free(arbol);
+    }
+    return arbol;
+}
+
+nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbolP)
+{
+    if(arbolP)
+    {
+        nodoArbolPelicula * mejor = mejorRaiz(arbolP);
+        if(mejor)
+        {
+            stPelicula aux = arbolP->p;
+            arbolP->p = mejor->p;
+            mejor->p = aux;
+            arbolP->der = recargarArbol(arbolP->der);
+            arbolP->der = balancearArbolPelis(arbolP->der);
+        }
+    }
+    return arbolP;
 }
