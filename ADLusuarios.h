@@ -11,11 +11,12 @@ int agregarPeliculaToUsuario(stCelda usuarios[],int val, int idUsuario, int idPe
 void limpiarArregloDeListas(stCelda usuarios[], int val);
 void persistirPeliculasVistas(stCelda usuarios[], int val, char archivo[]);
 
-void redimensionarUsuarios(stCelda usuarios[], int cant);
+void dimensionarUsuarios(stCelda ** usuarios, int cant);
+void redimensionarUsuarios(stCelda ** usuarios, int cant);
 void archivoUsuariosToADL(const char archivo[], stCelda usuarios[], int * val);
 void ADLToArchivoUsuarios(const char archivo[], stCelda usuarios[], int val);
 int cantidadUsuarios(const char archivo[]);
-int existeUsuario(char nombreUsuario[], stCelda usuarios[], int val);
+int existeUsuario(char nombreUsuario[], stCelda * usuarios, int val);
 int agregarUsuario(stCelda usuarios[], int * val);
 int eliminarUsuario(int idUsuario, stCelda usuarios[], int val);
 int buscarUsuario(stCelda usuarios[], int val, int idUsuario);
