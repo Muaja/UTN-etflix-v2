@@ -1,0 +1,149 @@
+# depslib dependency file v1.0
+1541213960 source:c:\users\muaja\desktop\trabajo practico final\adlusuarios.c
+	"ADLusuarios.h"
+
+1541213368 c:\users\muaja\desktop\trabajo practico final\adlusuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+
+1541205992 c:\users\muaja\desktop\trabajo practico final\estructuras.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1541203171 c:\users\muaja\desktop\trabajo practico final\menues.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"ADLusuarios.h"
+	"listaPeliculas.h"
+	"ArbolPeliculas.h"
+	"pelisVistas.h"
+
+1541196702 c:\users\muaja\desktop\trabajo practico final\listapeliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+
+1541125034 c:\users\muaja\desktop\trabajo practico final\arbolpeliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+
+1541196202 c:\users\muaja\desktop\trabajo practico final\pelisvistas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"listaPeliculas.h"
+	"ADLusuarios.h"
+	"Estructuras.h"
+
+1541119758 source:c:\users\muaja\desktop\trabajo practico final\arbolpeliculas.c
+	"ArbolPeliculas.h"
+
+1541126916 source:c:\users\muaja\desktop\trabajo practico final\estructuras.c
+	"Estructuras.h"
+
+1541197466 source:c:\users\muaja\desktop\trabajo practico final\listapeliculas.c
+	"listaPeliculas.h"
+
+1541204382 source:c:\users\muaja\desktop\trabajo practico final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+	"ADLusuarios.h"
+	"listaPeliculas.h"
+	"ArbolPeliculas.h"
+	"ADLusuarios.h"
+
+1541211525 source:c:\users\muaja\desktop\trabajo practico final\menues.c
+	"Menues.h"
+
+1540579898 source:c:\users\muaja\desktop\trabajo practico final\peliculas.c
+	"Estructuras.h"
+
+1541196424 source:c:\users\muaja\desktop\trabajo practico final\pelisvistas.c
+	"pelisVistas.h"
+
+1541128140 source:c:\users\alumno\desktop\trabajo practico final\adlusuarios.c
+	"ADLusuarios.h"
+
+1541128128 c:\users\alumno\desktop\trabajo practico final\adlusuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+
+1541126916 c:\users\alumno\desktop\trabajo practico final\estructuras.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1541125052 c:\users\alumno\desktop\trabajo practico final\menues.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"ADLusuarios.h"
+	"listaPeliculas.h"
+	"ArbolPeliculas.h"
+	"pelisVistas.h"
+
+1541196701 c:\users\alumno\desktop\trabajo practico final\listapeliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+
+1541125034 c:\users\alumno\desktop\trabajo practico final\arbolpeliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+
+1541196201 c:\users\alumno\desktop\trabajo practico final\pelisvistas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"listaPeliculas.h"
+	"ADLusuarios.h"
+	"Estructuras.h"
+
+1541119758 source:c:\users\alumno\desktop\trabajo practico final\arbolpeliculas.c
+	"ArbolPeliculas.h"
+
+1541126916 source:c:\users\alumno\desktop\trabajo practico final\estructuras.c
+	"Estructuras.h"
+
+1541196660 source:c:\users\alumno\desktop\trabajo practico final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+	"ADLusuarios.h"
+	"listaPeliculas.h"
+	"ArbolPeliculas.h"
+	"ADLusuarios.h"
+
+1541127008 source:c:\users\alumno\desktop\trabajo practico final\menues.c
+	"Menues.h"
+
+1540579898 source:c:\users\alumno\desktop\trabajo practico final\peliculas.c
+	"Estructuras.h"
+
+1541196423 source:c:\users\alumno\desktop\trabajo practico final\pelisvistas.c
+	"pelisVistas.h"
+
+1541196783 source:c:\users\alumno\desktop\trabajo practico final\listapeliculas.c
+	"listaPeliculas.h"
+
