@@ -9,9 +9,11 @@
 nodoArbolPelicula * inicArbol();
 nodoArbolPelicula * crearNodoArbolPelicula(stPelicula pelicula);
 nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicula * nuevo);
-void MostarArbolPreorder(nodoArbolPelicula * arbol);
+void MostrarArbol(nodoArbolPelicula * arbol, int opcion);
+void MostrarArbolPreorder(nodoArbolPelicula * arbol);
 void MostrarArbolInorder(nodoArbolPelicula * arbol);
-void MostarArbolPostorder(nodoArbolPelicula * arbol);
+void MostrarArbolPostorder(nodoArbolPelicula * arbol);
+void MostrarArbol2D(nodoArbolPelicula * arbolP, int espacio);
 nodoArbolPelicula * buscarPelicula(nodoArbolPelicula * arbol, int idPelicula);
 nodoArbolPelicula * buscarNombre(nodoArbolPelicula * arbol, char nombre[]);
 int nodosArbol(nodoArbolPelicula * arbol);
@@ -19,12 +21,13 @@ int hojaArbol(nodoArbolPelicula * arbol);
 int hojasArbol(nodoArbolPelicula * arbol);
 int alturaArbol(nodoArbolPelicula * arbol);
 nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int legajo);
+nodoArbolPelicula * borrarArbol(nodoArbolPelicula * arbol);
 nodoArbolPelicula * NMI(nodoArbolPelicula * arbol);
 nodoArbolPelicula * NMD(nodoArbolPelicula * arbol);
-nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbolP);
-nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbolP);
+nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol);
+nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbol);
 nodoArbolPelicula * recargarArbol(nodoArbolPelicula * arbol);
 nodoArbolPelicula * arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i);
-nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbolP);
+nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbol);
 
 #endif // ARBOLPELICULAS_H_INCLUDED

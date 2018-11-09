@@ -28,13 +28,13 @@ nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicu
     return arbol;
 }
 
-void MostarArbolPreorder(nodoArbolPelicula * arbol)
+void MostrarArbolPreorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
     {
         printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
-        MostarArbolPreorder(arbol->izq);
-        MostarArbolPreorder(arbol->der);
+        MostrarArbolPreorder(arbol->izq);
+        MostrarArbolPreorder(arbol->der);
     }
 
 }
@@ -49,12 +49,12 @@ void MostrarArbolInorder(nodoArbolPelicula * arbol)
     }
 }
 
-void MostarArbolPostorder(nodoArbolPelicula * arbol)
+void MostrarArbolPostorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
     {
-        MostarArbolPostorder(arbol->izq);
-        MostarArbolPostorder(arbol->der);
+        MostrarArbolPostorder(arbol->izq);
+        MostrarArbolPostorder(arbol->der);
         printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
     }
 }
@@ -136,7 +136,6 @@ int alturaArbol(nodoArbolPelicula * arbol)
 
 nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int idPelicula)
 {
-    nodoArbolPelicula * rta = NULL;
     if(arbol)
     {
         if(idPelicula == arbol->p.idPelicula)
@@ -171,6 +170,17 @@ nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int idPelicula)
     return arbol;
 }
 
+nodoArbolPelicula * borrarArbol(nodoArbolPelicula * arbol)
+{
+    if(arbol)
+    {
+        arbol = borrarArbol(arbol->izq);
+        arbol = borrarArbol(arbol->der);
+        free(arbol);
+    }
+    return arbol;
+}
+
 nodoArbolPelicula * NMI(nodoArbolPelicula * arbol)
 {
     nodoArbolPelicula * rta = NULL;
@@ -193,7 +203,7 @@ nodoArbolPelicula * NMD(nodoArbolPelicula * arbol)
     return rta;
 }
 
-nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbolP)
+nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol)
 {
     FILE *archi;
     archi = fopen(archivo,"rb");
@@ -203,25 +213,25 @@ nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula *
         while(fread(&aux, sizeof(stPelicula), 1, archi) > 0 && !(aux.eliminado)) //recorro el archivo de peliculas
         {
             nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
-            arbolP = insertarNodoArbol(arbolP,nuevo);
+            arbol = insertarNodoArbol(arbol,nuevo);
         }
         fclose(archi);
     }
-    return arbolP;
+    return arbol;
 }
 
-nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbolP)
+nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbol)
 {
     nodoArbolPelicula * mejor = NULL;
-    if(!hojaArbol(arbolP))
+    if(!hojaArbol(arbol))
     {
-        nodoArbolPelicula * nmi = NMD(arbolP);
-        nodoArbolPelicula * nmd = NMD(arbolP);
+        nodoArbolPelicula * nmi = NMD(arbol);
+        nodoArbolPelicula * nmd = NMD(arbol);
         int difidmejor = (nmd->p.idPelicula-nmi->p.idPelicula)/2;
         if(difidmejor != 0)
         {
             int idmejor = nmi->p.idPelicula+difidmejor;
-            mejor = buscarPelicula(arbolP,idmejor);
+            mejor = buscarPelicula(arbol,idmejor);
         }
     }
     return mejor;
@@ -236,6 +246,7 @@ nodoArbolPelicula * recargarArbol(nodoArbolPelicula * arbol)
     {
         arbol = insertarNodoArbol(arbol,crearNodoArbolPelicula(peliculas[i]));
     }
+    return arbol;
 }
 
 nodoArbolPelicula * arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i)
@@ -249,19 +260,46 @@ nodoArbolPelicula * arbolAArreglo(nodoArbolPelicula * arbol, stPelicula pelicula
     return arbol;
 }
 
-nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbolP)
+nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbol)
 {
-    if(arbolP)
+    if(arbol)
     {
-        nodoArbolPelicula * mejor = mejorRaiz(arbolP);
+        nodoArbolPelicula * mejor = mejorRaiz(arbol);
         if(mejor)
         {
-            stPelicula aux = arbolP->p;
-            arbolP->p = mejor->p;
+            stPelicula aux = arbol->p;
+            arbol->p = mejor->p;
             mejor->p = aux;
-            arbolP->der = recargarArbol(arbolP->der);
-            arbolP->der = balancearArbolPelis(arbolP->der);
+            arbol->der = recargarArbol(arbol->der);
+            arbol->der = balancearArbolPelis(arbol->der);
         }
     }
-    return arbolP;
+    return arbol;
+}
+
+void MostrarArbol2D(nodoArbolPelicula * arbol, int espacio)
+{
+    if(arbol == NULL)
+        return;
+
+    espacio += 10;
+    MostrarArbol2D(arbol->der, espacio);
+
+    printf("\n");
+    for (int i = 10; i < espacio; i++)
+        printf(" ");
+    printf("%d\n", arbol->p.idPelicula);
+
+    MostrarArbol2D(arbol->izq, espacio);
+}
+
+void MostrarArbol(nodoArbolPelicula * arbol, int opcion)
+{
+    switch(opcion)
+    {
+        case 1: MostrarArbolPreorder(arbol);
+        case 2: MostrarArbolInorder(arbol);
+        case 3: MostrarArbolPostorder(arbol);
+        case 4: MostrarArbol2D(arbol,0);
+    }
 }
