@@ -22,11 +22,12 @@ void menuInicio()
 void menuInicio()
 {
     system("COLOR F0");
-    int opcion;
+    int opcion = 0;
     encabezado("MENU PRINCIPAL","USUARIO");
     printf("\n1-Login de usuario");
     printf("\n2-Registro de usuario");
     printf("\n3-Administracion");
+    printf("\n4-Ver creditos");
 
     printf("\n\n0-Salir a windows");
     printf("\n\n\nEsperando opcion: ");
@@ -55,6 +56,12 @@ void menuInicio()
             else menuInicio();
             break;
         }
+        case 4:
+        {
+            system("START https://github.com/Muaja/UTN-etflix-v2");
+            menuInicio();
+            break;
+        }
         case 0:
         {
             salir();
@@ -76,7 +83,7 @@ void menuPrincipal()
 */
 void menuPrincipal()
 {
-    int opcion;
+    int opcion = 0;
     encabezado("MENU PRINCIPAL","USUARIO");
     printf("\n1-Ver pelicula");
     printf("\n2-Listar peliculas");
@@ -135,7 +142,7 @@ void menuPrincipal()
 
 void menuListarPeliculas(int dim, int acceso)
 {
-    int opcion;
+    int opcion = 0;
     encabezado("LISTAR PELICULAS","Ver peliculas y series");
     printf("\n1-Por titulo");
     printf("\n2-Por genero");
@@ -202,7 +209,7 @@ void menuListarPeliculas(int dim, int acceso)
 
 void menuBuscarPelicula(int dim, int acceso)
 {
-    int opcion;
+    int opcion = 0;
     encabezado("BUSQUEDA PELICULAS","Ver peliculas y series");
     printf("\n1-Por titulo");
     printf("\n2-Por genero");
@@ -328,7 +335,7 @@ void menuBuscarPelicula(int dim, int acceso)
 
 void menuListarUsuarios(int dim, int acceso)
 {
-    int opcion;
+    int opcion = 0;
     encabezado("LISTAR USUARIOS","Ver peliculas y series");
     printf("\n1-Por ID");
     printf("\n2-Por nombre");
@@ -383,7 +390,7 @@ void menuListarUsuarios(int dim, int acceso)
 
 void menuBuscarUsuario(int dim, int acceso)
 {
-    int opcion;
+    int opcion = 0;
     encabezado("BUSQUEDA USUARIOS","Ver peliculas y series");
     printf("\n1-Por nombre");
     printf("\n2-Por anio");
@@ -494,7 +501,7 @@ void menuAdministracion()
 {
     system("COLOR 0A");
 
-    int opcion;
+    int opcion = 0;
     encabezado("MENU ADMINISTRACION","ADMINISTRADOR");
     printf("\n1-Administrar usuarios");
     printf("\n2-Administrar peliculas");
@@ -602,6 +609,8 @@ void menuAdministrarPeliculas()
     printf("\n3-Modificar los datos de una pelicula");
     printf("\n4-Buscar pelicula");
     printf("\n5-Listar peliculas");
+    printf("\n6-Lista de peliculas");
+    printf("\n7-Arbol de peliculas");
 
     printf("\n\n0-Volver hacia atras");
     printf("\n\n\nEsperando opcion: ");
@@ -613,7 +622,7 @@ void menuAdministrarPeliculas()
         case 1:
         {
             encabezado("ALTA PELICULA","ADMINISTRADOR");
-            altaPelicula(listaP);
+            altaPelicula();
             menuAdministrarPeliculas();
             break;
         }
@@ -627,7 +636,7 @@ void menuAdministrarPeliculas()
                 printf("\nIngrese el ID de la pelicula que desea eliminar (Error: La pelicula no existe): ");
                 scanf("%i", &idPelicula);
             }
-            //eliminarPelicula(idPelicula);
+            eliminarPelicula(listaP, idPelicula);
             menuAdministrarPeliculas();
             break;
         }
@@ -636,23 +645,34 @@ void menuAdministrarPeliculas()
             encabezado("MODIFICAR PELICULA","ADMINISTRADOR");
             printf("\nIngrese el ID de la pelicula que desea modificar:\n");
             scanf("%i", &idPelicula);
-            while(idPelicula > cantidad)
+            while(!buscarListaPeliID(idPelicula,listaP))
             {
                 printf("\nIngrese el ID de la pelicula que desea modificar (Error: La pelicula no existe): ");
                 scanf("%i", &idPelicula);
             }
-            //modificarPelicula(idPelicula);
+            modificarPelicula(idPelicula);
             break;
         }
         case 4:
         {
             encabezado("BUSQUEDA PELICULAS","Ver peliculas y series");
             menuBuscarPelicula(0,1);
+            break;
         }
         case 5:
         {
-            encabezado("LISTA PELICULAS","Ver peliculas y series");
             menuListarPeliculas(0,1);
+            break;
+        }
+        case 6:
+        {
+            menuListaPeliculas();
+            break;
+        }
+        case 7:
+        {
+            menuArbolPeliculas();
+            break;
         }
         case 0:
         {
@@ -664,7 +684,7 @@ void menuAdministrarPeliculas()
 
 void menuCalificar(int idPelicula)
 {
-    int opcion;
+    int opcion = 0;
     encabezado("GRACIAS POR MIRAR","USUARIO");
     printf("\n1-Ver de nuevo");
     printf("\n2-Calificar");
@@ -761,9 +781,240 @@ void reproductor()
     printf("* <<  |>  >>  V                           *\n* * * * * * * * * * * * * * * * * * * * * *\n\n");
 }
 
+void menuListaPeliculas()
+{
+    int opcion = 0;
+    encabezado("LISTA DE PELICULAS","ADMINISTRADOR");
+    printf("\n1-Mostrar toda la lista");
+    printf("\n2-Mostrar solo peliculas activas");
+    printf("\n3-Borrar nodo por ID");
+    printf("\n4-Borrar toda la lista");
+    printf("\n5-Recargar lista");
+
+    printf("\n\n0-Volver hacia atras");
+    printf("\n\n\nEsperando opcion: ");
+
+    scanf("%d", &opcion);
+
+    if(opcion == 0)
+    {
+        menuAdministrarPeliculas();
+    }
+    else
+    {
+        switch(opcion)
+        {
+            case 1:
+            {
+                encabezado("LISTA PELICULAS","ADMINISTRADOR");
+                if(cantidadPeliculas(listaP) != 0) mostrarListaPelis(listaP);
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+            case 2:
+            {
+                encabezado("LISTA PELICULAS ACTIVAS","ADMINISTRADOR");
+                if(cantidadPeliculas(listaP) != 0) mostrarListaPelisActivas(listaP);
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+            case 3:
+            {
+                encabezado("BORRAR UN NODO POR ID","ADMINISTRADOR");
+                if(cantidadPeliculas(listaP) != 0)
+                {
+                    int idPelicula;
+                    printf("\nIngresa la ID del nodo que desea borrar: ");
+                    scanf("%i", &idPelicula);
+                    while(!buscarListaPeliID(idPelicula,listaP) && idPelicula != 0)
+                    {
+                        printf("\nIngresa la ID del nodo que desea borrar (Error: La pelicula no existe): ");
+                        scanf("%i", &idPelicula);
+                    }
+                    listaP = borrarPelicula(listaP,idPelicula);
+                    printf("\n\nLa pelicula ha sido borrada satisfactoriamente.\n\n");
+                }
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+            case 4:
+            {
+                encabezado("BORRAR LISTA PELICULAS","ADMINISTRADOR");
+                listaP = borrarListaPeliculas(listaP);
+                if(cantidadPeliculas(listaP) == 0) printf("\n\nLa lista ha sido vaciada satisfactoriamente.\n\n");
+                else printf("Error al vaciar la lista.\n\n");
+                break;
+            }
+            case 5:
+            {
+                if(cantidadPeliculas(listaP) != 0)
+                {
+                    menuCargaLista();
+                    printf("\n\nLa lista ha sido recargada satisfactoriamente.\n\n");
+                }
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+        }
+        system("pause");
+        menuListaPeliculas();
+    }
+}
+
+void menuCargaLista()
+{
+    int opcion = 0;
+    encabezado("RECARGA DE PELICULAS","ADMINISTRADOR");
+    printf("\n1-Cargar al principio (queda de atras hacia adelante)");
+    printf("\n2-Cargar al final (queda en el mismo orden que el archivo)");
+    printf("\n3-Cargar en orden por nombre");
+
+    printf("\n\n0-Volver hacia atras");
+    printf("\n\n\nEsperando opcion: ");
+
+    scanf("%d", &opcion);
+    while(opcion < 0 && opcion >= 4)
+    {
+        printf("\nEsperando opcion (Error: La opcion debe ser entre 0 y 3 inclusive): ");
+        scanf("%d", &opcion);
+    }
+
+    if(opcion == 0)
+    {
+        menuListaPeliculas();
+    }
+    else
+    {
+        listaP = inicLista();
+        listaP = archivoAListaPelis(ARCHIVO_PELICULAS, listaP, opcion);
+    }
+}
+
+void menuArbolPeliculas()
+{
+    int opcion = 0;
+    encabezado("ARBOL DE PELICULAS","ADMINISTRADOR");
+    printf("\n1-Insertar nodo en arbol (sin guardado)");
+    printf("\n2-Mostrar arbol");
+    printf("\n3-Borrar nodo por ID");
+    printf("\n4-Borrar todo el arbol");
+    printf("\n5-Recargar arbol");
+    printf("\n6-Balancear arbol");
+
+    printf("\n\n0-Volver hacia atras");
+    printf("\n\n\nEsperando opcion: ");
+
+    scanf("%d", &opcion);
+
+    if(opcion == 0)
+    {
+        menuAdministrarPeliculas();
+    }
+    else
+    {
+        switch(opcion)
+        {
+            case 1:
+            {
+                encabezado("LISTA PELICULAS","ADMINISTRADOR");
+                stPelicula aux = cargaPelicula();
+                nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
+                insertarNodoArbol(arbolP,nuevo);
+                printf("\n\nEl nodo se ha insertado satisfactoriamente.\n\n");
+                break;
+            }
+            case 2:
+            {
+                if(nodosArbol(arbolP) != 0) menuMostrarArbol();
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+            case 3:
+            {
+                encabezado("BORRAR UN NODO POR ID","ADMINISTRADOR");
+                if(nodosArbol(arbolP) != 0)
+                {
+                    int idPelicula;
+                    printf("\nIngresa la ID del nodo que desea borrar: ");
+                    scanf("%i", &idPelicula);
+                    while(!buscarPelicula(arbolP,idPelicula) && idPelicula != 0)
+                    {
+                        printf("\nIngresa la ID del nodo que desea borrar (Error: La pelicula no existe): ");
+                        scanf("%i", &idPelicula);
+                    }
+                    arbolP = borrarNodoArbol(arbolP,idPelicula);
+                    printf("\n\nLa pelicula ha sido borrada satisfactoriamente.\n\n");
+                }
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+            case 4:
+            {
+                encabezado("BORRAR ARBOL PELICULAS","ADMINISTRADOR");
+                arbolP = borrarArbol(arbolP);
+                if(nodosArbol(arbolP) == 0) printf("\n\nEl arbol ha sido vaciado satisfactoriamente.\n\n");
+                else printf("Error al vaciar el arbol.\n\n");
+                break;
+            }
+            case 5:
+            {
+                encabezado("RECARGAR ARBOL PELICULAS","ADMINISTRADOR");
+                if(cantidadPeliculas(listaP) != 0)
+                {
+                    arbolP = inicArbol();
+                    arbolP = archivoAArbolPelis(ARCHIVO_PELICULAS, arbolP);
+                    printf("\n\nEl arbol ha sido recargado satisfactoriamente.\n\n");
+                }
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+            case 6:
+            {
+                encabezado("BALANCEAR ARBOL PELICULAS","ADMINISTRADOR");
+                arbolP = balancearArbolPelis(arbolP);
+                if(nodosArbol(arbolP) != 0) printf("\n\nEl arbol ha sido balanceado satisfactoriamente.\n\n");
+                else printf("Todavia no se han creado peliculas.\n\n");
+                break;
+            }
+        }
+        system("pause");
+        menuArbolPeliculas();
+    }
+}
+
+void menuMostrarArbol()
+{
+    int opcion = 0;
+    encabezado("MOSTRAR ARBOL","ADMINISTRADOR");
+    printf("\n1-PRE-ORDER");
+    printf("\n2-IN-ORDER");
+    printf("\n3-POST-ORDER");
+    printf("\n4-2D");
+
+    printf("\n\n0-Volver hacia atras");
+    printf("\n\n\nEsperando opcion: ");
+
+    scanf("%d", &opcion);
+    while(opcion < 0 && opcion >= 5)
+    {
+        printf("\nEsperando opcion (Error: La opcion debe ser entre 0 y 4 inclusive): ");
+        scanf("%d", &opcion);
+    }
+
+    if(opcion == 0)
+    {
+        menuListaPeliculas();
+    }
+    else
+    {
+        MostrarArbol(arbolP,opcion);
+    }
+}
+
 void salir()
 {
     ADLToArchivoUsuarios(ARCHIVO_USUARIOS);
+    listaPelisAArchivo(ARCHIVO_PELICULAS, listaP);
     system("cls");
     printf("Saliendo a Windows, gracias por utilizar UTN-etflix...");
     exit(EXIT_SUCCESS);

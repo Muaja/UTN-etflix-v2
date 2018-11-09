@@ -21,5 +21,9 @@ void menuAdministrarUsuarios();
 void menuAdministrarPeliculas();
 void reproductor();
 void salir();
+void menuListaPeliculas();
+void menuArbolPeliculas();
+void menuCargaLista();
+void menuMostrarArbol();
 
 #endif
