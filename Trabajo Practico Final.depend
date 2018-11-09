@@ -147,22 +147,22 @@
 1541196783 source:c:\users\alumno\desktop\trabajo practico final\listapeliculas.c
 	"listaPeliculas.h"
 
-1541713096 source:c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.c
+1541718888 source:c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.c
 	"ADLusuarios.h"
 
-1541710875 c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.h
+1541715111 c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Estructuras.h"
 	"Menues.h"
 
-1541703477 c:\users\muaja\documents\github\utn-etflix-v2\estructuras.h
+1541720834 c:\users\muaja\documents\github\utn-etflix-v2\estructuras.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 
-1541703004 c:\users\muaja\documents\github\utn-etflix-v2\menues.h
+1541724547 c:\users\muaja\documents\github\utn-etflix-v2\menues.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -172,20 +172,21 @@
 	"ArbolPeliculas.h"
 	"pelisVistas.h"
 
-1541710560 c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.h
+1541726482 c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Estructuras.h"
+	"Menues.h"
 
-1541713626 c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.h
+1541725507 c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"Estructuras.h"
 	"listaPeliculas.h"
 
-1541710802 c:\users\muaja\documents\github\utn-etflix-v2\pelisvistas.h
+1541716125 c:\users\muaja\documents\github\utn-etflix-v2\pelisvistas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -193,19 +194,19 @@
 	"ADLusuarios.h"
 	"Estructuras.h"
 
-1541713668 source:c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.c
+1541725499 source:c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.c
 	"ArbolPeliculas.h"
 
-1541710727 source:c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.c
+1541726451 source:c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.c
 	"listaPeliculas.h"
 
-1541708901 source:c:\users\muaja\documents\github\utn-etflix-v2\menues.c
+1541726471 source:c:\users\muaja\documents\github\utn-etflix-v2\menues.c
 	"Menues.h"
 
-1541710965 source:c:\users\muaja\documents\github\utn-etflix-v2\pelisvistas.c
+1541716105 source:c:\users\muaja\documents\github\utn-etflix-v2\pelisvistas.c
 	"pelisVistas.h"
 
-1541709278 source:c:\users\muaja\documents\github\utn-etflix-v2\main.c
+1541726497 source:c:\users\muaja\documents\github\utn-etflix-v2\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
