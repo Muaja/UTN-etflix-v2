@@ -29,6 +29,7 @@ typedef struct
     int anio;
     int valoracion;
     int pm;
+    char url[128];
     int eliminado;
 } stPelicula;
 
@@ -48,7 +49,7 @@ typedef struct
 typedef struct
 {
     stUsuario usr;
-    nodoListaPelicula * listaPelis;///solo voy a apuntar a una direccion que me pasa jere en una lista de peli
+    nodoListaPelicula * listaPelis;
 } stCelda;
 
 typedef struct
@@ -60,9 +61,9 @@ typedef struct
 
 /* Constantes */
 
-static const char ARCHIVO_USUARIOS[] = "user.dat";
-static const char ARCHIVO_PELICULAS[] = "peli.dat";
-static const char ARCHIVO_PELISVISTAS[] = "peliv.dat";
+static const char ARCHIVO_USUARIOS[] = "usuarios.dat";
+static const char ARCHIVO_PELICULAS[] = "peliculas.dat";
+static const char ARCHIVO_PELISVISTAS[] = "peliculasVistas.dat";
 static const int MATRIZ_TESTIGO[2][2] = {{2,1},{5,3}};
 static const int INTENTOS_MAXIMOS = 3;
 
