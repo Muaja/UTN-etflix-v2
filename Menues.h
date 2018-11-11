@@ -11,14 +11,16 @@
 void encabezado(char titulo[], char acceso[]);
 void menuInicio();
 void menuPrincipal();
-void menuAdministracion();
+void menuCalificar(int idPelicula);
+void mirandoPelicula(int idPelicula);
+void reproductor();
 void menuListarPeliculas(int dim, int acceso);
 void menuBuscarPelicula(int dim, int acceso);
 void menuListarUsuarios(int dim, int acceso);
 void menuBuscarUsuario(int dim, int acceso);
+void menuAdministracion();
 void menuAdministrarUsuarios();
 void menuAdministrarPeliculas();
-void reproductor();
 void salir();
 void menuArbolPeliculas();
 void menuMostrarArbol();

@@ -185,94 +185,103 @@ void mostrarListaPelisActivas(nodoListaPelicula * lista)
     }
 }
 
-///Modificando el struct stPelicula para así añadirle una variable llamada reproducciones hacemos que se pueda generar un promedio para calcular la valoracion.
-stPelicula calificarPelicula(stPelicula pelicula)
+void verPelicula(int idUsuario, int idPelicula)
 {
-    int numero;
+    nodoArbolPelicula * vista = buscarPelicula(arbolP,idPelicula);
+    stPelicula aux = vista->p;
+    nodoListaPelicula * nuevo = crearNodoListaPelicula(aux);
+    insertarPeliFinal(usuarios[idUsuario-1].listaPelis,nuevo);
+    pelisVistasTOArchivo(ARCHIVO_PELICULAS);
+}
 
-    printf("\nCalifique la película del 1 al 10: ");
-    fflush(stdin);
-    scanf("%i", &numero);
-
-    while(numero<1 && numero> 10)
+void calificarPelicula(int idPelicula, int calificacion)
+{
+    nodoArbolPelicula * buscado = buscarPelicula(arbolP, idPelicula);
+    if(buscado)
     {
-        printf("\nCalifique la película del 1 al 10: ");
-        fflush(stdin);
-        scanf("%i", &numero);
+        buscado->p.reproducciones++;
+        buscado->p.valoracion += calificacion;
     }
-
-//    (float)pelicula.valoracion = ((float)numero+ pelicula.valoracion)/pelicula.reproducciones
-
-    return pelicula;
 }
 
-///Crea una nueva estructura con la peli nueva que ve el user
-stPelisVistas verPelicula(int idPelicula,int idUser,int validosPelisVistas)
+float calificacionPelicula(int idPelicula)
 {
-    stPelisVistas nuevaPeli;
-    nuevaPeli.idPeliVista=validosPelisVistas;
-    nuevaPeli.idPelicula=idPelicula;
-    nuevaPeli.idUsuario=idUser;
-
-    return nuevaPeli;
+    float calificacion = 0;
+    nodoArbolPelicula * buscado = buscarPelicula(arbolP, idPelicula);
+    if(buscado) calificacion = (float)buscado->p.valoracion/buscado->p.reproducciones;
+    return calificacion;
 }
-///Agrega una nueva peli al arreglo recibiendo el dato nuevo de la funcion verPelicula y a la vez llama a una nueva función para con el id de la pelicula
-///y del usuario, agregar esta nueva peli a la lista de pelis del user. Llama a la funciòn especifica.
-int cargarADLpelisVistas(stPelisVistas pelisVistas[], int val, stPelisVistas datos, nodoListaPelicula * listaP, stCelda user[],int cantUser)
+
+void archivoPelisVistasToADL(const char archivo[])
 {
-    pelisVistas=realloc(pelisVistas,(val+1)*(sizeof(stPelisVistas)));///reacondiciona el tamaño del arreglo
-    val++;
-    pelisVistas[val-1]=datos;///datos es la struct que se pasa por archivo
-    pasarPeliListaToListaUser(datos.idPelicula,datos.idUsuario,listaP);
-    return val;
+    FILE *archi;
+    archi = fopen(archivo,"rb");
+    if(archi != NULL)
+    {
+       stPelisVistas dato;
+       while(fread(&dato,sizeof(stPelisVistas),1,archi) > 0)
+       {
+           verPelicula(dato.idUsuario,dato.idPelicula);
+       }
+       fclose(archi);
+    }
 }
 
-///Pasa la nueva pelivista al struc de usuario.
-void pasarPeliListaToListaUser(int idPelicula,int idUser, nodoListaPelicula * listaP)
+void pelisVistasTOArreglo()
 {
     int i = 0;
-    while(i < val && idUser != usuarios[i].usr.idUsuario)
+    while(i < val)
     {
-        if(idUser == usuarios[i].usr.idUsuario)
+        if(usuarios[i].listaPelis != NULL)
         {
-            nodoListaPelicula * aux = buscarListaPeliID(idPelicula,listaP);
-            usuarios[i].listaPelis = crearNodoListaPelicula(aux->p);
+            listaPelisVistasToArreglo(usuarios[i].listaPelis, usuarios[i].usr.idUsuario);
         }
         i++;
     }
 }
 
-///Carga las pelisvistas del archivo al arreglo. Llama a la funciòn de cargar al ADL
-void pasarArchivoPelisVistaToADL(stPelisVistas pelisVistas[], int val, nodoListaPelicula * listaP, stCelda user[],int cantUser)
+void listaPelisVistasToArreglo(nodoListaPelicula * lista, int idUsuario)
 {
-    FILE *archi;
-    archi = fopen(ARCHIVO_PELISVISTAS,"rb");
-    if(archi!=NULL)
+    if(lista != NULL)
     {
-       stPelisVistas datos;///copia el dato del archivo
-       while(fread(&datos,sizeof(stPelisVistas),1,archi)>0)
-       {
-           cargarADLpelisVistas(pelisVistas,val,datos,listaP,user,cantUser);
-       }
-
+        if(!valpv) pelisVistas = dimensionarPelisVistas(pelisVistas,valpv+1);
+        else pelisVistas = redimensionarPelisVistas(pelisVistas, valpv+1);
+        pelisVistas[valpv].idPeliVista = valpv+1;
+        pelisVistas[valpv].idUsuario = idUsuario;
+        pelisVistas[valpv].idPelicula = lista->p.idPelicula;
+        valpv++;
+        listaPelisVistasToArreglo(lista->sig, idUsuario);
     }
+}
 
-}///hacer un ftell para saber la cantidad de registros y evitar el uso de realloc
+stPelisVistas * dimensionarPelisVistas(stPelisVistas pelisVistas[], int cant)
+{
+    pelisVistas = calloc(cant, sizeof(stCelda));
+    return pelisVistas;
+}
 
-///FUNCIONES ADL A ARCHIVO
+stPelisVistas * redimensionarPelisVistas(stPelisVistas pelisVistas[], int cant)
+{
+    pelisVistas = realloc(usuarios, sizeof(stCelda)*cant);
+    return pelisVistas;
+}
 
-///Carga el archivo.
-void pasarPelisVistasTOarchivo(stPelisVistas pelisVistas[], int val)
+void arregloPelisVistasTOarchivo(const char archivo[])
 {
     FILE *archi;
-    archi = fopen(ARCHIVO_PELISVISTAS,"ab");
+    archi = fopen(archivo,"wb");
     if(archi!=NULL)
     {
-        for(int i=0; i<val; i++)
+        for(int i=0; i < valpv; i++)
         {
             fwrite(&pelisVistas[i],sizeof(stPelisVistas),1,archi);
-
         }
         fclose(archi);
     }
+}
+
+void pelisVistasTOArchivo(const char archivo[])
+{
+    pelisVistasTOArreglo();
+    arregloPelisVistasTOarchivo(archivo);
 }

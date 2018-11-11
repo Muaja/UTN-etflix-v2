@@ -103,13 +103,23 @@ void menuPrincipal()
         {
             int idPelicula;
             encabezado("VER PELICULA","USUARIO");
-            //int dim = cantidadPeliculas(listaP);
-            //stPelicula peliculas[dim];
-            //listarPeliculas(0, peliculas, dim, 0);
-            //mostrarPeliculas(peliculas, dim);
+            MostrarArbolInorder(arbolP);
             printf("\n\nEsperando opcion: ");
             scanf("%i", &idPelicula);
-            verPelicula(idPelicula,sesion,valpv);
+            while(idPelicula < 1 || idPelicula > nodosArbol(arbolP)+1)
+            {
+                printf("\n\nEsperando opcion (Error: Esa pelicula no existe): ");
+                scanf("%i", &idPelicula);
+            }
+            if(!idPelicula)
+            {
+                menuPrincipal();
+            }
+            else
+            {
+                verPelicula(sesion,idPelicula);
+                menuCalificar(idPelicula);
+            }
             break;
         }
         case 2:
@@ -138,6 +148,116 @@ void menuPrincipal()
             break;
         }
     }
+}
+
+void menuCalificar(int idPelicula)
+{
+    encabezado("GRACIAS POR MIRAR","USUARIO");
+    printf("\n1-Ver de nuevo");
+    printf("\n2-Calificar");
+    printf("\n3-Ver otra pelicula");
+
+    int opcion = 0;
+    printf("\n\nEsperando opcion: ");
+    scanf("%i", &opcion);
+    switch(opcion)
+    {
+        case 1:
+        {
+            verPelicula(sesion,idPelicula);
+            menuCalificar(idPelicula);
+            break;
+        }
+        case 2:
+        {
+            encabezado("CALIFIQUE LA PELICULA","USUARIO");
+            int num;
+            printf("\nCalifica la película de 1 a 5: ");
+            scanf("%i", &num);
+            while(num < 1 && num > 5)
+            {
+                printf("\nCalifica la película de 1 a 5: ");
+                scanf("%i", &num);
+            }
+            calificarPelicula(idPelicula,num);
+            printf("\n\nEl puntaje ha sido actualizado satisfactoriamente.\nMuchas gracias.\n\n");
+            system("pause");
+            menuPrincipal();
+            break;
+        }
+        case 3:
+        {
+            int idPelicula;
+            encabezado("VER PELICULA","USUARIO");
+            MostrarArbolInorder(arbolP);
+            printf("\n\nEsperando opcion: ");
+            scanf("%i", &idPelicula);
+            while(idPelicula < 0 || idPelicula > nodosArbol(arbolP)+1)
+            {
+                printf("\n\nEsperando opcion (Error: Esa pelicula no existe): ");
+                scanf("%i", &idPelicula);
+            }
+            if(!idPelicula)
+            {
+                menuPrincipal();
+            }
+            else
+            {
+                verPelicula(sesion,idPelicula);
+                menuCalificar(idPelicula);
+            }
+            break;
+        }
+        case 0:
+        {
+            menuPrincipal();
+            break;
+        }
+    }
+}
+
+/*Reproductor para la función de ver pelicula. A mejorar. */
+void mirandoPelicula(int idPelicula)
+{
+    nodoArbolPelicula * nombre = buscarPelicula(arbolP,idPelicula);
+    encabezado(nombre->p.nombrePelicula,"USUARIO");
+    reproductor();
+    printf("\n\n");
+    system("pause");
+}
+
+void reproductor()
+{
+    int lado=22;
+    int contador = 1;
+    int contador2 = 1;
+
+    while (contador2 < lado+1)
+    {
+        contador = 1;
+        while (contador < lado+1)
+        {
+            if (contador2 == 1) printf("* ");
+            if (contador2 != 1)
+            {
+                if (contador2 != lado)
+                {
+                    if (contador == 1)
+                        printf("* ");
+                    else
+                        if (contador < lado)
+                            printf("  ");
+                        else
+                            printf("* ");
+                }
+                else printf("* ");
+            }
+            contador++;
+        }
+        printf(" \n");
+        contador2++;
+    }
+    printf("* <<  |>  >>  V                           *\n* * * * * * * * * * * * * * * * * * * * * *\n\n");
 }
 
 void menuListarPeliculas(int dim, int acceso)
@@ -676,105 +796,6 @@ void menuAdministrarPeliculas()
     }
 }
 
-void menuCalificar(int idPelicula)
-{
-    int opcion = 0;
-    encabezado("GRACIAS POR MIRAR","USUARIO");
-    printf("\n1-Ver de nuevo");
-    printf("\n2-Calificar");
-    printf("\n3-Ver otra pelicula");
-
-    printf("\n\n4-Salir a Windows");
-    printf("\n\nEsperando opcion: ");
-    scanf("%i", &opcion);
-
-    switch(opcion)
-    {
-        case 1:
-        {
-            verPelicula(sesion,idPelicula,valpv);
-            break;
-        }
-        case 2:
-        {
-            encabezado("CALIFIQUE LA PELICULA","USUARIO");
-            int puntaje;
-            printf("\nCalifica la película de 1 a 5: ");
-            scanf("%i", &puntaje);
-            //valorarPelicula(puntaje,idPelicula);
-            printf("\n\nEl puntaje ha sido actualizado satisfactoriamente.\nMuchas gracias.\n\n");
-            system("pause");
-            menuPrincipal();
-            break;
-        }
-        case 3:
-        {
-            menuPrincipal();
-            break;
-        }
-        case 0:
-        {
-            system("cls");
-            printf("Saliendo a Windows, gracias por utilizar UTN-etflix...");
-            exit(EXIT_SUCCESS);
-            break;
-        }
-    }
-}
-
-/*Reproductor para la función de ver pelicula. A mejorar. */
-void mirandoPelicula(int idPelicula)
-{
-    stPelicula aux;
-    FILE*archi;
-    archi=fopen(ARCHIVO_PELICULAS,"r+b");
-    if (archi != NULL)
-    {
-        fseek(archi,(idPelicula-1)*sizeof(stPelicula),SEEK_SET);
-        fread(&aux,sizeof(stPelicula),1,archi);
-
-        encabezado(aux.nombrePelicula,"USUARIO");
-        reproductor();
-        printf("\n\n");
-        system("pause");
-        menuCalificar(idPelicula);
-    }
-}
-
-void reproductor()
-{
-    int lado=22;
-    int contador = 1;
-    int contador2 = 1;
-
-    while (contador2 < lado+1)
-    {
-        contador = 1;
-        while (contador < lado+1)
-        {
-            if (contador2 == 1) printf("* ");
-            if (contador2 != 1)
-            {
-                if (contador2 != lado)
-                {
-                    if (contador == 1)
-                        printf("* ");
-                    else
-                        if (contador < lado)
-                            printf("  ");
-                        else
-                            printf("* ");
-                }
-                else printf("* ");
-            }
-            contador++;
-        }
-        printf(" \n");
-        contador2++;
-    }
-    printf("* <<  |>  >>  V                           *\n* * * * * * * * * * * * * * * * * * * * * *\n\n");
-}
-
 void menuArbolPeliculas()
 {
     int opcion = 0;
@@ -801,7 +822,7 @@ void menuArbolPeliculas()
         {
             case 1:
             {
-                encabezado("LISTA PELICULAS","ADMINISTRADOR");
+                encabezado("ARBOL PELICULAS","ADMINISTRADOR");
                 stPelicula aux = cargaPelicula();
                 nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
                 insertarNodoArbol(arbolP,nuevo);
@@ -903,6 +924,7 @@ void salir()
 {
     ADLToArchivoUsuarios(ARCHIVO_USUARIOS);
     arbolPelisAArchivo(ARCHIVO_PELICULAS, arbolP);
+    pelisVistasTOArchivo(ARCHIVO_PELISVISTAS);
     system("cls");
     printf("Saliendo a Windows, gracias por utilizar UTN-etflix...");
     exit(EXIT_SUCCESS);

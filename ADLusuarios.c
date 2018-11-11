@@ -185,6 +185,9 @@ int modificarUsuario(int idUsuario, int acceso, stCelda usuarios[], int val)
         printf("\n5-Nacionalidad: [%s]", aux.pais);
         if(acceso) printf("\n6-Administrador: [%i]", aux.admin);
 
+        printf("\n\nPeliculas vistas:\n");
+        mostrarListaPelis(usuarios[idUsuario-1].listaPelis);
+
         printf("\n\n0-Salir");
         printf("\n\nEsperando opcion: ");
         scanf("%i", &opcion);

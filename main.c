@@ -40,5 +40,5 @@ void preCargaPeliculas()
 
 void preCargaPelisVistas()
 {
-
+    archivoPelisVistasToADL(ARCHIVO_PELISVISTAS);
 }

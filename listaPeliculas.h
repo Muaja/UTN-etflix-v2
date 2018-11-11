@@ -20,11 +20,15 @@ nodoListaPelicula * borrarListaPeliculas(nodoListaPelicula * lista);
 void mostrarPelicula(stPelicula pelicula);
 void mostrarListaPelis(nodoListaPelicula * lista);
 void mostrarListaPelisActivas(nodoListaPelicula * lista);
-stPelicula calificarPelicula(stPelicula pelicula);
-void pasarArchivoPelisVistaToADL(stPelisVistas pelisVistas[], int val, nodoListaPelicula * listaP, stCelda user[],int cantUser);
-int cargarADLpelisVistas(stPelisVistas pelisVistas[], int val, stPelisVistas datos, nodoListaPelicula * listaP, stCelda user[],int cantUser);
-void pasarPeliListaToListaUser(int idPelicula,int idUser, nodoListaPelicula * listaP);
-stPelisVistas verPelicula(int idPelicula,int idUser,int validosPelisVistas);
-void pasarPelisVistasTOarchivo(stPelisVistas pelisVistas[], int val);
+void verPelicula(int idUsuario, int idPelicula);
+void calificarPelicula(int idPelicula, int calificacion);
+float calificacionPelicula(int idPelicula);
+void archivoPelisVistasToADL(const char archivo[]);
+void pelisVistasTOArreglo();
+void listaPelisVistasToArreglo(nodoListaPelicula * lista, int idUsuario);
+stPelisVistas * dimensionarPelisVistas(stPelisVistas pelisVistas[], int cant);
+stPelisVistas * redimensionarPelisVistas(stPelisVistas pelisVistas[], int cant);
+void arregloPelisVistasTOarchivo(const char archivo[]);
+void pelisVistasTOArchivo(const char archivo[]);
 
 #endif // LISTAPELICULAS_H_INCLUDED
