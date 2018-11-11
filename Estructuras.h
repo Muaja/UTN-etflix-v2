@@ -69,7 +69,6 @@ static const int INTENTOS_MAXIMOS = 3;
 
 /* Variables globales */
 
-nodoListaPelicula * listaP;
 nodoArbolPelicula * arbolP;
 stCelda * usuarios;
 int val;
