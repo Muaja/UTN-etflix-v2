@@ -490,13 +490,12 @@ nodoArbolPelicula * insertarNodoArbolBalanceado(nodoArbolPelicula * arbol, nodoA
         if(arbol->p.idPelicula < nuevo->p.idPelicula)
         {
             arbol->der = insertarNodoArbolBalanceado(arbol->der ,nuevo);
-            if(arbolDesbalanceado(arbol) == -1) arbol = rotarIzq(arbol); //rotacion izquierda
         }
         else
         {
             arbol->izq = insertarNodoArbolBalanceado(arbol -> izq , nuevo);
-            if(arbolDesbalanceado(arbol) == 1) arbol = rotarDer(arbol); //rotacion derecha
         }
+        arbol = balancearArbol(arbol);
     }
     return arbol;
 }
@@ -514,34 +513,28 @@ nodoArbolPelicula * rotarIzq(nodoArbolPelicula * arbol)
 
 nodoArbolPelicula * rotarDer(nodoArbolPelicula * arbol)
 {
+    nodoArbolPelicula * pivot = arbol;
     if(arbol->izq)
     {
         nodoArbolPelicula * pivot = arbol->izq;
         arbol->izq = pivot->der;
         pivot->der = arbol;
-        return pivot;
     }
+    return pivot;
 }
 
-int arbolDesbalanceado(nodoArbolPelicula * arbol)
+nodoArbolPelicula * balancearArbol(nodoArbolPelicula * arbol)
 {
-    int rta = 0;
-    if(arbol && !hojaArbol(arbol))
+    if(arbol)
     {
         int alturaizq = alturaArbol(arbol->izq);
         int alturader = alturaArbol(arbol->der);
-        if(alturaizq-alturader > 1)
+        if(fabs(alturaizq-alturader) > 1)
         {
-            rta = 1;
-        }
-        else if(alturaizq-alturader < -1)
-        {
-            rta = -1;
-        }
-        else
-        {
-            rta = arbolDesbalanceado(arbol);
+            if(alturaizq > alturader) arbol = rotarDer(arbol);
+            else arbol = rotarIzq(arbol);
+            arbol = balancearArbol(arbol);
         }
     }
-    return rta;
+    return arbol;
 }
