@@ -157,6 +157,7 @@ void menuCalificar(int idPelicula)
     printf("\n2-Calificar");
     printf("\n3-Ver otra pelicula");
 
+    printf("\n\n0-Volver al menu");
     int opcion = 0;
     printf("\n\nEsperando opcion: ");
     scanf("%i", &opcion);
