@@ -811,7 +811,7 @@ void menuArbolPeliculas()
             case 2:
             {
                 if(nodosArbol(arbolP) != 0) menuMostrarArbol();
-                else printf("Todavia no se han creado peliculas.\n\n");
+                else printf("Todavia no se han cargado peliculas.\n\n");
                 break;
             }
             case 3:
