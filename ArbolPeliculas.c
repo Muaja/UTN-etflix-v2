@@ -226,6 +226,7 @@ void MostrarArbol(nodoArbolPelicula * arbol, int opcion)
         case 3: MostrarArbolPostorder(arbol);
         case 4: MostrarArbol2D(arbol,0);
     }
+    printf("\n\n");
 }
 
 void MostrarArbolPreorder(nodoArbolPelicula * arbol)
@@ -415,6 +416,7 @@ nodoArbolPelicula * borrarArbol(nodoArbolPelicula * arbol)
         arbol = borrarArbol(arbol->izq);
         arbol = borrarArbol(arbol->der);
         free(arbol);
+
     }
     return arbol;
 }
@@ -441,7 +443,7 @@ nodoArbolPelicula * NMD(nodoArbolPelicula * arbol)
     return rta;
 }
 
-nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol)
+nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol, int balanceado)
 {
     FILE *archi;
     archi = fopen(archivo,"rb");
@@ -451,7 +453,9 @@ nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula *
         while(fread(&aux, sizeof(stPelicula), 1, archi) > 0 && !(aux.eliminado)) //recorro el archivo de peliculas
         {
             nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
-            arbol = insertarNodoArbolBalanceado(arbol,nuevo);
+            if(balanceado) arbol = insertarNodoArbolBalanceado(arbol,nuevo);
+            else arbol = insertarNodoArbol(arbol,nuevo);
+
         }
         fclose(archi);
     }
