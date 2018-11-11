@@ -7,7 +7,6 @@
 #include "ADLusuarios.h"
 #include "listaPeliculas.h"
 #include "ArbolPeliculas.h"
-#include "pelisVistas.h"
 
 void encabezado(char titulo[], char acceso[]);
 void menuInicio();
