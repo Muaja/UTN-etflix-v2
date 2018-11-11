@@ -411,12 +411,10 @@ nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int idPelicula)
 
 nodoArbolPelicula * borrarArbol(nodoArbolPelicula * arbol)
 {
-    if(arbol)
+    int cant = nodosArbol(arbol);
+    for(int i = 0; i < cant+1; i++)
     {
-        arbol = borrarArbol(arbol->izq);
-        arbol = borrarArbol(arbol->der);
-        free(arbol);
-
+        arbol = borrarNodoArbol(arbol,i);
     }
     return arbol;
 }
