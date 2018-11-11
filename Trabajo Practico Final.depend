@@ -162,7 +162,7 @@
 	<stdlib.h>
 	<string.h>
 
-1541941968 c:\users\muaja\documents\github\utn-etflix-v2\menues.h
+1541956361 c:\users\muaja\documents\github\utn-etflix-v2\menues.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -170,9 +170,8 @@
 	"ADLusuarios.h"
 	"listaPeliculas.h"
 	"ArbolPeliculas.h"
-	"pelisVistas.h"
 
-1541943306 c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.h
+1541956229 c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
