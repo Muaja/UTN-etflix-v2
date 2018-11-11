@@ -36,7 +36,7 @@ void preCargaPeliculas()
 {
     arbolP = inicArbol();
     arbolP = archivoAArbolPelis(ARCHIVO_PELICULAS, arbolP);
-    arbolP = balancearArbolPelis(arbolP);
+    //arbolP = balancearArbolPelis(arbolP);
 }
 
 void preCargaPelisVistas()
