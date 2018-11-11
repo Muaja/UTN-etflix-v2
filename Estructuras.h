@@ -28,6 +28,7 @@ typedef struct
     char pais[20];
     int anio;
     int valoracion;
+    int reproducciones;
     int pm;
     char url[128];
     int eliminado;

@@ -246,12 +246,12 @@ void modificarPelicula(int idPelicula)
             }
             case 8:
             {
-                printf("\nIngrese la URL de la pel�cula:\n");
+                printf("\nIngrese la URL de la película:\n");
                 fflush(stdin);
                 gets(&aux->p.url);
                 while(!strlen(&aux->p.url))
                 {
-                    printf("\nIngrese la URL de la pel�cula (Error: El campo URL no puede estar vacio):\n");
+                    printf("\nIngrese la URL de la película (Error: El campo URL no puede estar vacio):\n");
                     fflush(stdin);
                     gets(&aux->p.url);
                 }
@@ -475,4 +475,24 @@ void listaPelisAArchivo(const char archivo[], nodoListaPelicula *listaP)
         }
         fclose(archi);
     }
+}
+///Modificando el struct stPelicula para así añadirle una variable llamada reproducciones hacemos que se pueda generar un promedio para calcular la valoracion.
+stPelicula calificarPelicula(stPelicula pelicula)
+{
+    int numero;
+
+    printf("\nCalifique la película del 1 al 10: ");
+    fflush(stdin);
+    scanf("%i", &numero);
+
+    while(numero<1 && numero> 10)
+    {
+        printf("\nCalifique la película del 1 al 10: ");
+        fflush(stdin);
+        scanf("%i", &numero);
+    }
+
+//    (float)pelicula.valoracion = ((float)numero+ pelicula.valoracion)/pelicula.reproducciones
+
+    return pelicula;
 }
