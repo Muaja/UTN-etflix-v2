@@ -844,19 +844,21 @@ void menuArbolPeliculas()
             case 5:
             {
                 encabezado("RECARGAR ARBOL PELICULAS","ADMINISTRADOR");
-                if(nodosArbol(arbolP) != 0)
+                if(nodosArbol(arbolP) == 0)
                 {
                     arbolP = inicArbol();
-                    arbolP = archivoAArbolPelis(ARCHIVO_PELICULAS, arbolP);
+                    arbolP = archivoAArbolPelis(ARCHIVO_PELICULAS, arbolP, 0);
                     printf("\n\nEl arbol ha sido recargado satisfactoriamente.\n\n");
                 }
-                else printf("Todavia no se han creado peliculas.\n\n");
+                else printf("El arbol ya tiene peliculas.\n\n");
                 break;
             }
             case 6:
             {
                 encabezado("BALANCEAR ARBOL PELICULAS","ADMINISTRADOR");
-                //arbolP = balancearArbolPelis(arbolP);
+                arbolP = borrarArbol(arbolP);
+                arbolP = inicArbol();
+                arbolP = archivoAArbolPelis(ARCHIVO_PELICULAS, arbolP, 1);
                 if(nodosArbol(arbolP) != 0) printf("\n\nEl arbol ha sido balanceado satisfactoriamente.\n\n");
                 else printf("Todavia no se han creado peliculas.\n\n");
                 break;
@@ -892,6 +894,7 @@ void menuMostrarArbol()
     }
     else
     {
+        encabezado("MOSTRAR ARBOL","ADMINISTRADOR");
         MostrarArbol(arbolP,opcion);
     }
 }
