@@ -31,5 +31,9 @@ nodoArbolPelicula * NMD(nodoArbolPelicula * arbol);
 nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol);
 void arbolPelisAArchivo(const char archivo[], nodoArbolPelicula * arbol);
 void arbolPelisAArchivoR(FILE* archi, nodoArbolPelicula * arbol);
+nodoArbolPelicula * insertarNodoArbolBalanceado(nodoArbolPelicula * arbol, nodoArbolPelicula * nuevo);
+nodoArbolPelicula * rotarIzq(nodoArbolPelicula * arbol);
+nodoArbolPelicula * rotarDer(nodoArbolPelicula * arbol);
+int arbolDesbalanceado(nodoArbolPelicula * arbol);
 
 #endif // ARBOLPELICULAS_H_INCLUDED

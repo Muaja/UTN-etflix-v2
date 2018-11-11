@@ -451,7 +451,7 @@ nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula *
         while(fread(&aux, sizeof(stPelicula), 1, archi) > 0 && !(aux.eliminado)) //recorro el archivo de peliculas
         {
             nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
-            arbol = insertarNodoArbol(arbol,nuevo);
+            arbol = insertarNodoArbolBalanceado(arbol,nuevo);
         }
         fclose(archi);
     }
@@ -479,23 +479,69 @@ void arbolPelisAArchivoR(FILE* archi, nodoArbolPelicula * arbol)
     }
 }
 
-int arbolBalanceado(nodoArbolPelicula * arbol)
+nodoArbolPelicula * insertarNodoArbolBalanceado(nodoArbolPelicula * arbol, nodoArbolPelicula * nuevo)
 {
-    int rta = 1;
+    if(!arbol)
+    {
+        arbol = nuevo;
+    }
+    else
+    {
+        if(arbol->p.idPelicula < nuevo->p.idPelicula)
+        {
+            arbol->der = insertarNodoArbolBalanceado(arbol->der ,nuevo);
+            if(arbolDesbalanceado(arbol) == -1) arbol = rotarIzq(arbol); //rotacion izquierda
+        }
+        else
+        {
+            arbol->izq = insertarNodoArbolBalanceado(arbol -> izq , nuevo);
+            if(arbolDesbalanceado(arbol) == 1) arbol = rotarDer(arbol); //rotacion derecha
+        }
+    }
+    return arbol;
+}
+
+nodoArbolPelicula * rotarIzq(nodoArbolPelicula * arbol)
+{
+    if(arbol->der)
+    {
+        nodoArbolPelicula * pivot = arbol->der;
+        arbol->der = pivot->izq;
+        pivot->izq = arbol;
+        return pivot;
+    }
+}
+
+nodoArbolPelicula * rotarDer(nodoArbolPelicula * arbol)
+{
+    if(arbol->izq)
+    {
+        nodoArbolPelicula * pivot = arbol->izq;
+        arbol->izq = pivot->der;
+        pivot->der = arbol;
+        return pivot;
+    }
+}
+
+int arbolDesbalanceado(nodoArbolPelicula * arbol)
+{
+    int rta = 0;
     if(arbol && !hojaArbol(arbol))
     {
         int alturaizq = alturaArbol(arbol->izq);
         int alturader = alturaArbol(arbol->der);
-        if(alturaizq-alturader > 1 || alturaizq-alturader < -1)
+        if(alturaizq-alturader > 1)
         {
-            rta = 0;
+            rta = 1;
+        }
+        else if(alturaizq-alturader < -1)
+        {
+            rta = -1;
         }
         else
         {
-            rta = arbolBalanceado(arbol);
+            rta = arbolDesbalanceado(arbol);
         }
     }
     return rta;
 }
-
-
