@@ -25,6 +25,8 @@ void mostrarPelicula(stPelicula pelicula);
 void mostrarListaPelis(nodoListaPelicula * listaP);
 void mostrarListaPelisActivas(nodoListaPelicula * listaP);
 
+stPelicula calificarPelicula(stPelicula pelicula);
+
 nodoListaPelicula * archivoAListaPelis(const char archivo[], nodoListaPelicula * listaP, int carga);
 void listaPelisAArchivo(const char archivo[], nodoListaPelicula *listaP);
 
