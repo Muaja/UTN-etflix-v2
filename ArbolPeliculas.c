@@ -28,6 +28,206 @@ nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicu
     return arbol;
 }
 
+stPelicula cargaPelicula()
+{
+    stPelicula aux;
+
+    printf("\nIngrese el nombre de la nueva pelicula:\n");
+    fflush(stdin);
+    gets(aux.nombrePelicula);
+    while(!strlen(aux.nombrePelicula))
+    {
+        printf("\nIngrese el nombre de la nueva pelicula (Error: El campo pelicula no puede estar vacio):\n");
+        fflush(stdin);
+        gets(aux.nombrePelicula);
+    }
+    while(buscarNombre(arbolP,aux.nombrePelicula))
+    {
+        printf("\nIngrese el nombre de la nueva pelicula (Error: La pelicula ya existe):\n");
+        fflush(stdin);
+        gets(aux.nombrePelicula);
+    }
+
+    printf("\nIngrese el nombre del director:\n");
+    fflush(stdin);
+    gets(aux.director);
+
+    printf("\nIngrese el genero de la pelicula:\n");
+    fflush(stdin);
+    gets(aux.genero);
+
+    printf("\nIngrese el pais de la pelicula:\n");
+    fflush(stdin);
+    gets(aux.pais);
+
+    printf("\nIngrese el anio en que se grabo la pelicula:\n");
+    fflush(stdin);
+    scanf("%i", &aux.anio);
+
+    printf("\nIngrese la valoracion inicial de la pelicula:\n");
+    fflush(stdin);
+    scanf("%i", &aux.valoracion);
+
+    //(0- si es ATP / 13: mayor de trece / 16: mayor de 16 / 18: mayor de 18;
+    printf("\nIngrese la clasificacion por edad de la pelicula:\n(0- ATP / 13- mayor de 13 / 16- mayor de 16 / 18- mayor de 18):\n");
+    fflush(stdin);
+    scanf("%i", &aux.pm);
+    while(aux.pm != 0 && aux.pm != 13 && aux.pm != 16 && aux.pm != 18)
+    {
+        printf("\nIngrese la clasificacion por edad de la pelicula\n(0- si es ATP / 13: mayor de trece / 16: mayor de 16 / 18: mayor de 18):\n");
+        fflush(stdin);
+        scanf("%i", &aux.pm);
+    }
+
+    printf("\nIngrese la URL de la pelicula: ");
+    fflush(stdin);
+    gets(aux.url);
+    while(!strlen(aux.url))
+    {
+        printf("\nIngrese la URL de la pelicula (Error: El campo URL no puede estar vacio): ");
+        fflush(stdin);
+        gets(aux.url);
+    }
+
+    aux.eliminado = 0;
+    aux.idPelicula = nodosArbol(arbolP)+1;
+    return aux;
+}
+
+void altaPelicula()
+{
+    stPelicula aux = cargaPelicula();
+    nodoArbolPelicula * nuevo = crearNodoArbolPelicula(aux);
+    arbolP = insertarNodoArbol(arbolP,nuevo);
+    arbolPelisAArchivo(ARCHIVO_PELICULAS,arbolP);
+
+    printf("\nLa pelicula se guardo correctamente.\n\n");
+    system("pause");
+}
+
+void modificarPelicula(int idPelicula)
+{
+    nodoArbolPelicula * aux = buscarPelicula(arbolP,idPelicula);
+
+    int opcion = 0;
+
+    encabezado("MODIFICAR PELICULA","ADMINISTRADOR");
+    printf("\n1-Nombre de la pelicula: [%s]", aux->p.nombrePelicula);
+    printf("\n2-Nombre del director: [%s]", aux->p.director);
+    printf("\n3-Genero: [%s]", aux->p.genero);
+    printf("\n4-Pais: [%s]", aux->p.pais);
+    printf("\n5-Anio: [%i]", aux->p.anio);
+    printf("\n6-Valoracion inicial: [%i]", aux->p.valoracion);
+    printf("\n7-Clasificacion: [%i]", aux->p.pm);
+    printf("\n8-URL: [%s]", aux->p.url);
+
+    printf("\n\n0-Volver atras");
+    printf("\n\nEsperando opcion: ");
+    scanf("%i", &opcion);
+
+    if(opcion == 0)
+    {
+        menuAdministrarPeliculas();
+    }
+    else
+    {
+        switch(opcion)
+        {
+            case 1:
+            {
+                printf("\nIngrese el nombre de la pelicula: ");
+                fflush(stdin);
+                gets(aux->p.nombrePelicula);
+                while(buscarNombre(arbolP,aux->p.nombrePelicula))
+                {
+                    printf("\nIngrese el nombre de la pelicula (Error: La pelicula ya existe): ");
+                    fflush(stdin);
+                    gets(aux->p.nombrePelicula);
+                }
+                break;
+            }
+            case 2:
+            {
+                printf("\nIngrese el nombre del director: ");
+                fflush(stdin);
+                gets(aux->p.director);
+                break;
+            }
+            case 3:
+            {
+                printf("\nIngrese el genero de la pelicula: ");
+                fflush(stdin);
+                gets(aux->p.genero);
+                break;
+            }
+            case 4:
+            {
+                printf("\nIngrese el pais de la pelicula: ");
+                fflush(stdin);
+                gets(aux->p.pais);
+                break;
+            }
+            case 5:
+            {
+                printf("\nIngrese el anio en que se grabo la pelicula: ");
+                fflush(stdin);
+                scanf("%i", &aux->p.anio);
+                break;
+            }
+            case 6:
+            {
+                printf("\nIngrese la valoracion inicial de la pelicula: ");
+                fflush(stdin);
+                scanf("%i", &aux->p.valoracion);
+                break;
+            }
+            case 7:
+            {
+                //(0- si es ATP / 13: mayor de trece / 16: mayor de 16 / 18: mayor de 18;
+                printf("\nIngrese la clasificacion por edad de la pelicula\n(0- si es ATP / 13: mayor de trece / 16: mayor de 16 / 18: mayor de 18): ");
+                fflush(stdin);
+                scanf("%i", &aux->p.pm);
+                while(aux->p.pm != 0 && aux->p.pm != 13 && aux->p.pm != 16 && aux->p.pm != 18)
+                {
+                    printf("\nIngrese la clasificacion por edad de la pelicula\n(0- si es ATP / 13: mayor de trece / 16: mayor de 16 / 18: mayor de 18): ");
+                    fflush(stdin);
+                    scanf("%i", &aux->p.pm);
+                }
+                break;
+            }
+            case 8:
+            {
+                printf("\nIngrese la URL de la película:\n");
+                fflush(stdin);
+                gets(&aux->p.url);
+                while(!strlen(&aux->p.url))
+                {
+                    printf("\nIngrese la URL de la película (Error: El campo URL no puede estar vacio):\n");
+                    fflush(stdin);
+                    gets(&aux->p.url);
+                }
+                break;
+            }
+
+        }
+
+        printf("\nSe guardo la modificacion realizada.\n\n");
+        system("pause");
+        modificarPelicula(idPelicula);
+    }
+}
+
+void MostrarArbol(nodoArbolPelicula * arbol, int opcion)
+{
+    switch(opcion)
+    {
+        case 1: MostrarArbolPreorder(arbol);
+        case 2: MostrarArbolInorder(arbol);
+        case 3: MostrarArbolPostorder(arbol);
+        case 4: MostrarArbol2D(arbol,0);
+    }
+}
+
 void MostrarArbolPreorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
@@ -57,6 +257,22 @@ void MostrarArbolPostorder(nodoArbolPelicula * arbol)
         MostrarArbolPostorder(arbol->der);
         printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
     }
+}
+
+void MostrarArbol2D(nodoArbolPelicula * arbol, int espacio)
+{
+    if(arbol == NULL)
+        return;
+
+    espacio += 10;
+    MostrarArbol2D(arbol->der, espacio);
+
+    printf("\n");
+    for (int i = 10; i < espacio; i++)
+        printf(" ");
+    printf("%d\n", arbol->p.idPelicula);
+
+    MostrarArbol2D(arbol->izq, espacio);
 }
 
 nodoArbolPelicula * buscarPelicula(nodoArbolPelicula * arbol, int idPelicula)
@@ -130,6 +346,28 @@ int alturaArbol(nodoArbolPelicula * arbol)
         int der = alturaArbol(arbol->der);
         if(izq > der) rta = 1 + izq;
         else rta = 1 + der;
+    }
+    return rta;
+}
+
+void eliminarPelicula(nodoArbolPelicula * arbol, int idPelicula)
+{
+    int rta = 0;
+    if(arbol)
+    {
+        if(idPelicula == arbol->p.idPelicula)
+        {
+            arbol->p.eliminado = 1;
+            rta = 1;
+        }
+        else if(idPelicula > arbol->p.idPelicula)
+        {
+            rta = buscarPelicula(arbol->der, idPelicula);
+        }
+        else
+        {
+            rta = buscarPelicula(arbol->izq, idPelicula);
+        }
     }
     return rta;
 }
@@ -220,86 +458,44 @@ nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula *
     return arbol;
 }
 
-nodoArbolPelicula * mejorRaiz(nodoArbolPelicula * arbol)
+void arbolPelisAArchivo(const char archivo[], nodoArbolPelicula * arbol)
 {
-    nodoArbolPelicula * mejor = NULL;
-    if(!hojaArbol(arbol))
+    FILE *archi;
+    archi = fopen(archivo,"wb");
+    if(archi!=NULL)
     {
-        nodoArbolPelicula * nmi = NMD(arbol);
-        nodoArbolPelicula * nmd = NMD(arbol);
-        int difidmejor = (nmd->p.idPelicula-nmi->p.idPelicula)/2;
-        if(difidmejor != 0)
-        {
-            int idmejor = nmi->p.idPelicula+difidmejor;
-            mejor = buscarPelicula(arbol,idmejor);
-        }
+        arbolPelisAArchivoR(archi, arbolP);
+        fclose(archi);
     }
-    return mejor;
 }
 
-nodoArbolPelicula * recargarArbol(nodoArbolPelicula * arbol)
-{
-    int cant = nodosArbol(arbolP);
-    stPelicula peliculas[cant];
-    arbol = arbolAArreglo(arbol, peliculas, 0);
-    for(int i = 0; i < cant; i++)
-    {
-        arbol = insertarNodoArbol(arbol,crearNodoArbolPelicula(peliculas[i]));
-    }
-    return arbol;
-}
-
-nodoArbolPelicula * arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i)
+void arbolPelisAArchivoR(FILE* archi, nodoArbolPelicula * arbol)
 {
     if(arbol)
     {
-        peliculas[i] = arbol->p;
-        arbol = arbolAArreglo(arbol->der, peliculas, i+1);
-        free(arbol);
+        arbolPelisAArchivoR(archi, arbol->izq);
+        fwrite(&arbol->p,sizeof(stPelicula),1,archi);
+        arbolPelisAArchivoR(archi, arbol->der);
     }
-    return arbol;
 }
 
-nodoArbolPelicula * balancearArbolPelis(nodoArbolPelicula * arbol)
+int arbolBalanceado(nodoArbolPelicula * arbol)
 {
-    if(arbol)
+    int rta = 1;
+    if(arbol && !hojaArbol(arbol))
     {
-        nodoArbolPelicula * mejor = mejorRaiz(arbol);
-        if(mejor)
+        int alturaizq = alturaArbol(arbol->izq);
+        int alturader = alturaArbol(arbol->der);
+        if(alturaizq-alturader > 1 || alturaizq-alturader < -1)
         {
-            stPelicula aux = arbol->p;
-            arbol->p = mejor->p;
-            mejor->p = aux;
-            arbol->der = recargarArbol(arbol->der);
-            arbol->der = balancearArbolPelis(arbol->der);
+            rta = 0;
+        }
+        else
+        {
+            rta = arbolBalanceado(arbol);
         }
     }
-    return arbol;
+    return rta;
 }
 
-void MostrarArbol2D(nodoArbolPelicula * arbol, int espacio)
-{
-    if(arbol == NULL)
-        return;
 
-    espacio += 10;
-    MostrarArbol2D(arbol->der, espacio);
-
-    printf("\n");
-    for (int i = 10; i < espacio; i++)
-        printf(" ");
-    printf("%d\n", arbol->p.idPelicula);
-
-    MostrarArbol2D(arbol->izq, espacio);
-}
-
-void MostrarArbol(nodoArbolPelicula * arbol, int opcion)
-{
-    switch(opcion)
-    {
-        case 1: MostrarArbolPreorder(arbol);
-        case 2: MostrarArbolInorder(arbol);
-        case 3: MostrarArbolPostorder(arbol);
-        case 4: MostrarArbol2D(arbol,0);
-    }
-}
