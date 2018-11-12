@@ -233,7 +233,7 @@ void MostrarArbolPreorder(nodoArbolPelicula * arbol)
 {
     if(arbol)
     {
-        printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
+        printf("\n%d-%s", arbol->p.idPelicula, arbol->p.nombrePelicula);
         MostrarArbolPreorder(arbol->izq);
         MostrarArbolPreorder(arbol->der);
     }
@@ -245,7 +245,7 @@ void MostrarArbolInorder(nodoArbolPelicula * arbol)
     if(arbol)
     {
         MostrarArbolInorder(arbol->izq);
-        printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
+        printf("\n%d-%s", arbol->p.idPelicula, arbol->p.nombrePelicula);
         MostrarArbolInorder(arbol->der);
     }
 }
@@ -256,7 +256,7 @@ void MostrarArbolPostorder(nodoArbolPelicula * arbol)
     {
         MostrarArbolPostorder(arbol->izq);
         MostrarArbolPostorder(arbol->der);
-        printf("\n%d  %s", arbol->p.idPelicula, arbol->p.nombrePelicula);
+        printf("\n%d-%s", arbol->p.idPelicula, arbol->p.nombrePelicula);
     }
 }
 
