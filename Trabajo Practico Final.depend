@@ -171,7 +171,7 @@
 	"listaPeliculas.h"
 	"ArbolPeliculas.h"
 
-1541983939 c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.h
+1541985428 c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -196,7 +196,7 @@
 1541983534 source:c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.c
 	"ArbolPeliculas.h"
 
-1541984440 source:c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.c
+1541986997 source:c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.c
 	"listaPeliculas.h"
 
 1541983492 source:c:\users\muaja\documents\github\utn-etflix-v2\menues.c
