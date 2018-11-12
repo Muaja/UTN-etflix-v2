@@ -263,25 +263,30 @@ void listaPelisVistasToArreglo(nodoListaPelicula * lista, int idUsuario)
 {
     if(lista != NULL)
     {
-        if(!valpv)pelisVistas = dimensionarPelisVistas(pelisVistas,valpv+1);
-        else pelisVistas = redimensionarPelisVistas(pelisVistas,valpv+1);
-        pelisVistas[valpv].idPeliVista = valpv+1;
-        pelisVistas[valpv].idUsuario = idUsuario;
-        pelisVistas[valpv].idPelicula = lista->p.idPelicula;
-        valpv++;
+        agregarPeliculaToArreglo(idUsuario, lista->p.idPelicula);
         listaPelisVistasToArreglo(lista->sig, idUsuario);
     }
 }
 
+void agregarPeliculaToArreglo(int idUsuario, int idPelicula)
+{
+    if(!valpv) pelisVistas = dimensionarPelisVistas(pelisVistas,valpv+1);
+    else pelisVistas = redimensionarPelisVistas(pelisVistas,valpv+1);
+    pelisVistas[valpv].idPeliVista = valpv+1;
+    pelisVistas[valpv].idUsuario = idUsuario;
+    pelisVistas[valpv].idPelicula = idPelicula;
+    valpv++;
+}
+
 stPelisVistas * dimensionarPelisVistas(stPelisVistas pelisVistas[], int cant)
 {
-    pelisVistas = calloc(cant, sizeof(stCelda));
+    pelisVistas = calloc(cant, sizeof(stPelisVistas));
     return pelisVistas;
 }
 
 stPelisVistas * redimensionarPelisVistas(stPelisVistas pelisVistas[], int cant)
 {
-    pelisVistas = realloc(usuarios, sizeof(stCelda)*cant);
+    pelisVistas = realloc(pelisVistas, sizeof(stPelisVistas)*cant);
     return pelisVistas;
 }
 
@@ -289,9 +294,9 @@ void arregloPelisVistasTOarchivo(const char archivo[])
 {
     FILE *archi;
     archi = fopen(archivo,"wb");
-    if(archi!=NULL)
+    if(archi != NULL)
     {
-        for(int i=0; i < valpv; i++)
+        for(int i = 0; i < valpv; i++)
         {
             fwrite(&pelisVistas[i],sizeof(stPelisVistas),1,archi);
         }
@@ -303,4 +308,6 @@ void pelisVistasTOArchivo(const char archivo[])
 {
     pelisVistasTOArreglo();
     arregloPelisVistasTOarchivo(archivo);
+    free(pelisVistas);
+    pelisVistas = realloc(pelisVistas, sizeof(stPelisVistas *));
 }

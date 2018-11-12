@@ -27,6 +27,7 @@ int cantidadPelisVistas(const char archivo[]);
 void archivoPelisVistasToADL(const char archivo[]);
 void pelisVistasTOArreglo();
 void listaPelisVistasToArreglo(nodoListaPelicula * lista, int idUsuario);
+void agregarPeliculaToArreglo(int idUsuario, int idPelicula);
 stPelisVistas * dimensionarPelisVistas(stPelisVistas pelisVistas[], int cant);
 stPelisVistas * redimensionarPelisVistas(stPelisVistas pelisVistas[], int cant);
 void arregloPelisVistasTOarchivo(const char archivo[]);
