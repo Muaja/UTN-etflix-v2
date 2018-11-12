@@ -104,9 +104,10 @@ void menuPrincipal()
             int idPelicula;
             encabezado("VER PELICULA","USUARIO");
             MostrarArbolInorder(arbolP);
+            printf("\n\n0-Volver al menu");
             printf("\n\nEsperando opcion: ");
             scanf("%i", &idPelicula);
-            while(idPelicula < 1 || idPelicula > nodosArbol(arbolP)+1)
+            while(idPelicula < 0 || idPelicula > nodosArbol(arbolP)+1)
             {
                 printf("\n\nEsperando opcion (Error: Esa pelicula no existe): ");
                 scanf("%i", &idPelicula);
