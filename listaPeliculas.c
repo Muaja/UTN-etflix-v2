@@ -191,7 +191,7 @@ void verPelicula(int idUsuario, int idPelicula)
     stPelicula aux = vista->p;
     nodoListaPelicula * nuevo = crearNodoListaPelicula(aux);
     usuarios[idUsuario-1].listaPelis = insertarPeliFinal(usuarios[idUsuario-1].listaPelis,nuevo);
-    pelisVistasTOArchivo(ARCHIVO_PELICULAS);
+    pelisVistasTOArchivo(ARCHIVO_PELISVISTAS);
 }
 
 void calificarPelicula(int idPelicula, int calificacion)
@@ -212,24 +212,43 @@ float calificacionPelicula(int idPelicula)
     return calificacion;
 }
 
-void archivoPelisVistasToADL(const char archivo[])
+int cantidadPelisVistas(const char archivo[])
 {
+    int cantidad = 0;
     FILE *archi;
     archi = fopen(archivo,"rb");
     if(archi != NULL)
     {
-       stPelisVistas dato;
-       while(fread(&dato,sizeof(stPelisVistas),1,archi) > 0)
-       {
-           verPelicula(dato.idUsuario,dato.idPelicula);
-       }
-       fclose(archi);
+        fseek(archi,0,SEEK_END);
+        cantidad = ftell(archi)/sizeof(stPelisVistas);
+        fclose(archi);
+    }
+    return cantidad;
+}
+
+void archivoPelisVistasToADL(const char archivo[])
+{
+    int cant = cantidadPelisVistas(archivo);
+    if(cant > 0)
+    {
+        FILE *archi;
+        archi = fopen(archivo,"rb");
+        if(archi != NULL)
+        {
+           stPelisVistas dato;
+           while(fread(&dato,sizeof(stPelisVistas),1,archi) > 0)
+           {
+               verPelicula(dato.idUsuario,dato.idPelicula);
+           }
+           fclose(archi);
+        }
     }
 }
 
 void pelisVistasTOArreglo()
 {
     int i = 0;
+    valpv = 0;
     while(i < val)
     {
         if(usuarios[i].listaPelis != NULL)
@@ -244,8 +263,8 @@ void listaPelisVistasToArreglo(nodoListaPelicula * lista, int idUsuario)
 {
     if(lista != NULL)
     {
-        if(!valpv) pelisVistas = dimensionarPelisVistas(pelisVistas,valpv+1);
-        else pelisVistas = redimensionarPelisVistas(pelisVistas, valpv+1);
+        if(!valpv)pelisVistas = dimensionarPelisVistas(pelisVistas,valpv+1);
+        else pelisVistas = redimensionarPelisVistas(pelisVistas,valpv+1);
         pelisVistas[valpv].idPeliVista = valpv+1;
         pelisVistas[valpv].idUsuario = idUsuario;
         pelisVistas[valpv].idPelicula = lista->p.idPelicula;

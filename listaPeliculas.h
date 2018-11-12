@@ -23,6 +23,7 @@ void mostrarListaPelisActivas(nodoListaPelicula * lista);
 void verPelicula(int idUsuario, int idPelicula);
 void calificarPelicula(int idPelicula, int calificacion);
 float calificacionPelicula(int idPelicula);
+int cantidadPelisVistas(const char archivo[]);
 void archivoPelisVistasToADL(const char archivo[]);
 void pelisVistasTOArreglo();
 void listaPelisVistasToArreglo(nodoListaPelicula * lista, int idUsuario);
