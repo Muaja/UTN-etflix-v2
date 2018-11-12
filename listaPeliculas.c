@@ -190,7 +190,7 @@ void verPelicula(int idUsuario, int idPelicula)
     nodoArbolPelicula * vista = buscarPelicula(arbolP,idPelicula);
     stPelicula aux = vista->p;
     nodoListaPelicula * nuevo = crearNodoListaPelicula(aux);
-    insertarPeliFinal(usuarios[idUsuario-1].listaPelis,nuevo);
+    usuarios[idUsuario-1].listaPelis = insertarPeliFinal(usuarios[idUsuario-1].listaPelis,nuevo);
     pelisVistasTOArchivo(ARCHIVO_PELICULAS);
 }
 
