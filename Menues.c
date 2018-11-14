@@ -58,6 +58,7 @@ void menuInicio()
         }
         case 4:
         {
+            system("START https://trello.com/b/HeI4CpBO/burgue%C3%B1o-fanjul-latorre");
             system("START https://github.com/Muaja/UTN-etflix-v2");
             menuInicio();
             break;
@@ -119,6 +120,7 @@ void menuPrincipal()
             else
             {
                 verPelicula(sesion,idPelicula);
+                mirandoPelicula(idPelicula);
                 menuCalificar(idPelicula);
             }
             break;
@@ -218,12 +220,13 @@ void menuCalificar(int idPelicula)
     }
 }
 
-/*Reproductor para la función de ver pelicula. A mejorar. */
+/* Reproductor para la función de ver pelicula. A mejorar. */
 void mirandoPelicula(int idPelicula)
 {
     nodoArbolPelicula * nombre = buscarPelicula(arbolP,idPelicula);
     encabezado(nombre->p.nombrePelicula,"USUARIO");
     reproductor();
+
     printf("\n\n");
     system("pause");
 }
