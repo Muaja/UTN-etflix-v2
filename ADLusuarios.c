@@ -28,7 +28,7 @@ int existeUsuario(char nombreUsuario[])
         int i = 0;
         while(i < val && !existe)
         {
-            if(strcmp(usuarios[i].usr.nombreUsuario,nombreUsuario) == 0 && usuarios[i].usr.eliminado == 0) existe = usuarios[i].usr.idUsuario;
+            if(strcmpi(usuarios[i].usr.nombreUsuario,nombreUsuario) == 0 && usuarios[i].usr.eliminado == 0) existe = usuarios[i].usr.idUsuario;
             i++;
         }
     }
@@ -429,7 +429,7 @@ int posMenorNombreUsuarios(stUsuario muestra[], int pos, int cant)
 
     while(i < cant)
     {
-        if(strcmp(menor, muestra[i].nombreUsuario) > 0)
+        if(strcmpi(menor, muestra[i].nombreUsuario) > 0)
         {
             strcpy(menor, muestra[i].nombreUsuario);
             posMenor = i;
@@ -500,7 +500,7 @@ int posMenorPaisUsuarios(stUsuario muestra[], int pos, int cant)
 
     while(i < cant)
     {
-        if(strcmp(menor, muestra[i].pais) > 0)
+        if(strcmpi(menor, muestra[i].pais) > 0)
         {
             strcpy(menor, muestra[i].pais);
             posMenor = i;
@@ -572,7 +572,7 @@ int loginUsuario(stCelda usuarios[], int val)
             gets(pass);
         }
         int count = 0;
-        while(strcmp(pass,passdesencriptada) && count < INTENTOS_MAXIMOS)
+        while(strcmpi(pass,passdesencriptada) && count < INTENTOS_MAXIMOS)
         {
             printf("\nIngrese una password (Error: La password es incorrecta):\n");
             fflush(stdin);
