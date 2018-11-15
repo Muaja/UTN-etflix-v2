@@ -199,12 +199,12 @@ void modificarPelicula(int idPelicula)
             {
                 printf("\nIngrese la URL de la película:\n");
                 fflush(stdin);
-                gets(&aux->p.url);
-                while(!strlen(&aux->p.url))
+                gets(aux->p.url);
+                while(!strlen(aux->p.url))
                 {
                     printf("\nIngrese la URL de la película (Error: El campo URL no puede estar vacio):\n");
                     fflush(stdin);
-                    gets(&aux->p.url);
+                    gets(aux->p.url);
                 }
                 break;
             }
@@ -229,7 +229,7 @@ void mostrarPeliculas(stPelicula peliculas[], int dim)
     printf("\nID\tPelicula\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
     while(i < dim)
     {
-        printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion);
+        printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion/peliculas[i].reproducciones);
         i++;
     }
     printf("\n\n");
@@ -335,51 +335,39 @@ switch(tipo):
     5-por anio.
     6-por clasificacion para mayores PM.
 */
-void listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno)
+int listarPeliculas(int tipo, stPelicula peliculas[], int validos, int dim, int lleno)
 {
-
-    FILE *archi;
-    archi = fopen(ARCHIVO_PELICULAS,"rb");
-    if(archi != NULL)
+    int i = 0;
+    if(!lleno) i = arbolAArreglo(0,arbolP,peliculas,0,dim,"",0);
+    else i = validos;
+    switch(tipo)
     {
-        if(!lleno)
+        case 1:
         {
-            arbolAArreglo(0,arbolP,peliculas,0,dim,"",0);
-        }
-        switch(tipo)
+            ordenaArregloPeliculasSeleccionTitulo(peliculas,dim);
+        } break;
+        case 2:
         {
-            case 1:
-            {
-                ordenaArregloPeliculasSeleccionTitulo(peliculas,dim);
-                break;
-            }
-            case 2:
-            {
-                ordenaArregloPeliculasInsercionGenero(peliculas,dim);
-                break;
-            }
-            case 3:
-            {
-                ordenaArregloPeliculasSeleccionPais(peliculas,dim);
-                break;
-            }
-            case 4:
-            {
-                ordenaArregloPeliculasSeleccionValoracion(peliculas,dim);
-                break;
-            }
-            case 5:
-            {
-                ordenaArregloPeliculasSeleccionAnio(peliculas,dim);
-                break;
-            }
-            case 6:
-            {
-                ordenaArregloPeliculasSeleccionClasificacion(peliculas,dim);
-                break;
-            }
-        }
+            ordenaArregloPeliculasInsercionGenero(peliculas,dim);
+        } break;
+        case 3:
+        {
+            ordenaArregloPeliculasSeleccionPais(peliculas,dim);
+        } break;
+        case 4:
+        {
+            ordenaArregloPeliculasSeleccionValoracion(peliculas,dim);
+        } break;
+        case 5:
+        {
+            ordenaArregloPeliculasSeleccionAnio(peliculas,dim);
+        } break;
+        case 6:
+        {
+            ordenaArregloPeliculasSeleccionClasificacion(peliculas,dim);
+        } break;
     }
+    return i;
 }
 
 int posMenorTituloPeliculas(stPelicula peliculas[], int pos, int cant)
@@ -716,7 +704,7 @@ int alturaArbol(nodoArbolPelicula * arbol)
     return rta;
 }
 
-void eliminarPelicula(nodoArbolPelicula * arbol, int idPelicula)
+int eliminarPelicula(nodoArbolPelicula * arbol, int idPelicula)
 {
     int rta = 0;
     if(arbol)
@@ -728,11 +716,11 @@ void eliminarPelicula(nodoArbolPelicula * arbol, int idPelicula)
         }
         else if(idPelicula > arbol->p.idPelicula)
         {
-            rta = buscarPelicula(arbol->der, idPelicula);
+            rta = eliminarPelicula(arbol->der, idPelicula);
         }
         else
         {
-            rta = buscarPelicula(arbol->izq, idPelicula);
+            rta = eliminarPelicula(arbol->izq, idPelicula);
         }
     }
     return rta;

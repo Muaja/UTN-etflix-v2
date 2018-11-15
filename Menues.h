@@ -13,6 +13,7 @@ void menuInicio();
 void menuPrincipal();
 void menuCalificar(int idPelicula);
 void mirandoPelicula(int idPelicula);
+void peliculasRecomendadas(int idUsuario);
 void reproductor();
 void menuListarPeliculas(int dim, int acceso);
 void menuBuscarPelicula(int dim, int acceso);

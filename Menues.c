@@ -137,7 +137,7 @@ void menuPrincipal()
         }
         case 4:
         {
-            //peliculasRecomendadas(sesion);
+            peliculasRecomendadas(sesion);
             break;
         }
         case 5:
@@ -229,6 +229,36 @@ void mirandoPelicula(int idPelicula)
 
     printf("\n\n");
     system("pause");
+}
+
+void peliculasRecomendadas(int idUsuario)
+{
+    if(!arbolP || !buscarUsuario(usuarios,val,idUsuario)) printf("Todavia no se han creado peliculas. O todavia el usuario no esta registrado.");
+    int dim = nodosArbol(arbolP), validos = 0;
+    if(usuarios[idUsuario-1].listaPelis)
+    {
+
+        nodoListaPelicula * lista = usuarios[idUsuario-1].listaPelis;
+        while(lista->sig)
+        {
+            stPelicula peliculas[dim];
+            validos = consultaPeliculas(2,lista->p.genero,0,peliculas,dim);
+            if(validos)
+            {
+                validos = listarPeliculas(4,peliculas,validos,dim,1);
+                mostrarPeliculas(peliculas,2); // Muestra las primeras 2 de cada genero ultimamente visto.
+                lista = (nodoListaPelicula *)lista->sig;
+                validos = 0;
+            }
+        }
+    }
+    else
+    {
+        stPelicula peliculas[dim];
+        // Se muestran las primeras 10 peliculas mejor valoradas ordenadas de mayor a menor
+        listarPeliculas(4,peliculas,0,10,0);
+        mostrarPeliculas(peliculas,10);
+    }
 }
 
 void reproductor()
@@ -324,7 +354,7 @@ void menuListarPeliculas(int dim, int acceso)
             if(dim == 0) dim = nodosArbol(arbolP);
             stPelicula peliculas[dim];
             encabezado("LISTAR PELICULAS","Ver peliculas y series");
-            listarPeliculas(opcion, peliculas, dim, 0);
+            listarPeliculas(opcion, peliculas, 0, dim, 0);
             mostrarPeliculas(peliculas, dim);
             system("pause");
             menuListarPeliculas(dim,acceso);
