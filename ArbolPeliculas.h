@@ -13,7 +13,7 @@ nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicu
 stPelicula cargaPelicula();
 void altaPelicula();
 void modificarPelicula(int idPelicula);
-void mostrarPeliculas(stPelicula peliculas[], int dim);
+void mostrarArregloPeliculas(stPelicula peliculas[], int validos, int dim);
 int arbolAArreglo(int tipo, nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim, char filtro[], int filtro2);
 int consultaPeliculas(int tipo, char filtro[], int filtro2, stPelicula peliculas[], int dim);
 int listarPeliculas(int tipo, stPelicula peliculas[], int validos, int dim, int lleno);

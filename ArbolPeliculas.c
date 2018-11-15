@@ -217,17 +217,17 @@ void modificarPelicula(int idPelicula)
     }
 }
 
-/* Funcion mostrarPeliculas(): recibe por parametro un arreglo de peliculas y su dimension. Recorre el arreglo y muestra las peliculas de forma organizada.
-void mostrarPeliculas(stPelicula peliculas[], int dim)
+/* Funcion mostrarArregloPeliculas(): recibe por parametro un arreglo de peliculas y su dimension. Recorre el arreglo y muestra las peliculas de forma organizada.
+void mostrarArregloPeliculas(stPelicula peliculas[], int dim)
 
 Parametros:
 stPelicula peliculas[] - arreglo de peliculas conteniendo la informacion que deseamos mostrar.
 int dim - dimension del arreglo de peliculas. */
-void mostrarPeliculas(stPelicula peliculas[], int dim)
+void mostrarArregloPeliculas(stPelicula peliculas[], int validos, int dim)
 {
 	int i = 0;
-    printf("\nID\tPelicula\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
-    while(i < dim)
+    if(validos) printf("\nID\tPelicula\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
+    while(i < validos)
     {
         printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion/peliculas[i].reproducciones);
         i++;
