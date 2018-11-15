@@ -308,6 +308,11 @@ void pelisVistasTOArchivo(const char archivo[])
 {
     pelisVistasTOArreglo();
     arregloPelisVistasTOarchivo(archivo);
+    vaciarPelisVistas();
+}
+
+void vaciarPelisVistas()
+{
     free(pelisVistas);
     pelisVistas = realloc(pelisVistas, sizeof(stPelisVistas *));
 }

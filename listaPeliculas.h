@@ -32,5 +32,6 @@ stPelisVistas * dimensionarPelisVistas(stPelisVistas pelisVistas[], int cant);
 stPelisVistas * redimensionarPelisVistas(stPelisVistas pelisVistas[], int cant);
 void arregloPelisVistasTOarchivo(const char archivo[]);
 void pelisVistasTOArchivo(const char archivo[]);
+void vaciarPelisVistas();
 
 #endif // LISTAPELICULAS_H_INCLUDED
