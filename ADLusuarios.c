@@ -555,9 +555,10 @@ int loginUsuario(stCelda usuarios[], int val)
         idUsuario = existeUsuario(nombreUsuario);
         while(!idUsuario)
         {
-            printf("\nIngrese el nombre de usuario (Error: El usuario no existe.):\n");
+            printf("\nIngrese el nombre de usuario (Error: El usuario no existe./0 para volver): ");
             fflush(stdin);
             gets(nombreUsuario);
+            if(strcmp(nombreUsuario,"0") == 0) menuInicio();
             idUsuario = existeUsuario(nombreUsuario);
         }
         aux = usuarios[idUsuario-1].usr;
