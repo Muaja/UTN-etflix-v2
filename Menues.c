@@ -322,10 +322,10 @@ void menuListarPeliculas(int dim, int acceso)
             */
 
             if(dim == 0) dim = nodosArbol(arbolP);
-            //stPelicula peliculas[dim];
+            stPelicula peliculas[dim];
             encabezado("LISTAR PELICULAS","Ver peliculas y series");
-            //listarPeliculas(opcion, peliculas, dim, 0);
-            //mostrarPeliculas(peliculas, dim);
+            listarPeliculas(opcion, peliculas, dim, 0);
+            mostrarPeliculas(peliculas, dim);
             system("pause");
             menuListarPeliculas(dim,acceso);
         }
@@ -359,24 +359,20 @@ void menuBuscarPelicula(int dim, int acceso)
                 case 0:
                 {
                     menuPrincipal();
-                    break;
-                }
+                } break;
                 case 1:
                 {
                     menuAdministrarPeliculas();
-                    break;
-                }
+                } break;
             }
-            break;
-        }
+        } break;
         case 7:
         {
             encabezado("BUSQUEDA PELICULAS","Ver peliculas y series");
             printf("\nIngrese la cantidad que desea buscar: ");
             scanf("%d", &dim);
             menuBuscarPelicula(dim,acceso);
-            break;
-        }
+        } break;
         default:
         {
             /*
@@ -393,7 +389,7 @@ void menuBuscarPelicula(int dim, int acceso)
             char filtro[30] = {0};
             int filtro2 = 0;
             if(dim == 0) dim = nodosArbol(arbolP);
-            //stPelicula peliculas[dim];
+            stPelicula peliculas[dim];
 
             encabezado("BUSQUEDA PELICULAS","Ver peliculas y series");
             switch(opcion)
@@ -403,48 +399,42 @@ void menuBuscarPelicula(int dim, int acceso)
                     printf("\nIngrese el titulo que desea buscar: ");
                     fflush(stdin);
                     gets(filtro);
-                    break;
-                }
+                } break;
                 case 2:
                 {
                     printf("\nIngrese el genero que desea buscar: ");
                     fflush(stdin);
                     gets(filtro);
-                    break;
-                }
+                } break;
                 case 3:
                 {
                     printf("\nIngrese el pais que desea buscar: ");
                     fflush(stdin);
                     gets(filtro);
-                    break;
-                }
+                } break;
                 case 4:
                 {
                     printf("\nIngrese la valoracion que desea buscar: ");
                     scanf("%i", &filtro2);
-                    break;
-                }
+                } break;
                 case 5:
                 {
                     printf("\nIngrese el anio que desea buscar: ");
                     scanf("%i", &filtro2);
-                    break;
-                }
+                } break;
                 case 6:
                 {
                     printf("\nIngrese la clasificacion que desea buscar: ");
                     scanf("%i", &filtro2);
-                    break;
-                }
+                } break;
             }
-            //cant = consultaPeliculas(opcion, filtro, filtro2, peliculas, dim);
+            cant = consultaPeliculas(opcion, filtro, filtro2, peliculas, dim);
 
             encabezado("BUSQUEDA PELICULAS","Ver peliculas y series");
             if(cant > 0)
             {
                 printf("\nSe encontraron un total de %i peliculas.\n\n", cant);
-                //mostrarPeliculas(peliculas,cant);
+                mostrarPeliculas(peliculas,cant);
                 system("pause");
                 menuBuscarPelicula(dim,acceso);
             }
