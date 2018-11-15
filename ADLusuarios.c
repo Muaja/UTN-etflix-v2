@@ -319,7 +319,7 @@ int consultaUsuarios(int tipo, char filtro[], int filtro2, stUsuario muestra[], 
                     i++;
                     j++;
                 }
-            }
+            } break;
             case 1:
             {
                 while(i < dim && j < val) //recorro el archivo de usuarios y corto si llego al maximo de usuarios
@@ -331,7 +331,7 @@ int consultaUsuarios(int tipo, char filtro[], int filtro2, stUsuario muestra[], 
                     }
                     j++;
                 }
-            }
+            } break;
 			case 2:
             {
                 while(i < dim && j < val) //recorro el archivo de usuarios y corto si llego al maximo de usuarios
@@ -343,7 +343,7 @@ int consultaUsuarios(int tipo, char filtro[], int filtro2, stUsuario muestra[], 
                     }
                     j++;
                 }
-            }
+            } break;
             case 3:
             {
                 while(i < dim && j < val) //recorro el archivo de usuarios y corto si llego al maximo de usuarios
@@ -355,7 +355,7 @@ int consultaUsuarios(int tipo, char filtro[], int filtro2, stUsuario muestra[], 
                     }
                     j++;
                 }
-            }
+            } break;
         }
     }
     return i;
