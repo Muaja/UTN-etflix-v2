@@ -14,7 +14,7 @@ stPelicula cargaPelicula();
 void altaPelicula();
 void modificarPelicula(int idPelicula);
 void listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno);
-void arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim);
+int arbolAArreglo(int tipo, nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim, char filtro[], int filtro2);
 int posMenorTituloPeliculas(stPelicula peliculas[], int pos, int cant);
 void ordenaArregloPeliculasSeleccionTitulo(stPelicula peliculas[], int cant);
 int insertaPeliculaOrdenadoGenero(stPelicula peliculas[], int cant, stPelicula aux);

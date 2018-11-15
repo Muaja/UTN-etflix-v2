@@ -217,6 +217,104 @@ void modificarPelicula(int idPelicula)
     }
 }
 
+/* Funcion mostrarPeliculas(): recibe por parametro un arreglo de peliculas y su dimension. Recorre el arreglo y muestra las peliculas de forma organizada.
+void mostrarPeliculas(stPelicula peliculas[], int dim)
+
+Parametros:
+stPelicula peliculas[] - arreglo de peliculas conteniendo la informacion que deseamos mostrar.
+int dim - dimension del arreglo de peliculas. */
+void mostrarPeliculas(stPelicula peliculas[], int dim)
+{
+	int i = 0;
+    printf("\nID\tPelicula\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
+    while(i < dim)
+    {
+        printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion);
+        i++;
+    }
+    printf("\n\n");
+}
+
+int arbolAArreglo(int tipo, nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim, char filtro[], int filtro2)
+{
+    if(arbol && i < dim)
+    {
+        i = arbolAArreglo(tipo,arbol->izq,peliculas,i,dim,filtro,filtro2);
+        int flag = 0;
+        switch(tipo)
+        {
+            case 0:
+            {
+                flag = 1;
+            } break;
+            case 1:
+            {
+                if(strstr(arbol->p.nombrePelicula,filtro) != NULL) flag = 1;
+            } break;
+            case 2:
+            {
+                if(strstr(arbol->p.genero,filtro) != NULL) flag = 1;
+            } break;
+            case 3:
+            {
+                if(strstr(arbol->p.pais,filtro) != NULL) flag = 1;
+            } break;
+            case 4:
+            {
+                if(arbol->p.valoracion == filtro2) flag = 1;
+            } break;
+            case 5:
+            {
+                if(arbol->p.anio == filtro2) flag = 1;
+            } break;
+            case 6:
+            {
+                if(arbol->p.pm == filtro2) flag = 1;
+            } break;
+        }
+        if(flag)
+        {
+            peliculas[i] = arbol->p;
+            i++;
+        }
+        i = arbolAArreglo(tipo,arbol->der,peliculas,i,dim,filtro,filtro2);
+    }
+    return i;
+}
+
+/* Funcion consulta peliculas: busca en el archivo las peliculas que coinciden con los parametros establecidos, modifica arreglo peliculas
+con las peliculas encontradas.
+int consultaPeliculas(int tipo, char filtro, int filtro2, int peliculas[], int dim)
+
+Parametros:
+int tipo - tipo de busqueda que queremos.
+char filtro - primer filtro, utilizado para las busquedas por titulo, genero y pais.
+int filtro2 - segundo filtro, utilizado para las bussquedas por valoracion, anio y clasificacion.
+stPelicula peliculas[] - arreglo de peliculas donde se guardan las id de las peliculas encontradas.
+int dim - dimension que establece la cantidad de peliculas que podremos buscar.
+
+switch(tipo de busqueda):
+    0-sin filtro
+    1-por titulo.
+    2-por genero.
+    3-por pais
+    4-por valoracion.
+    5-por anio.
+    6-por clasificacion para mayores PM.
+
+Retorna:
+>0 - La cantidad de peliculas encontradas que coinciden con la busqueda.
+0 - Si no se encontraron peliculas o no pudo ser abierto el archivo. */
+int consultaPeliculas(int tipo, char filtro[], int filtro2, stPelicula peliculas[], int dim)
+{
+    int i = 0;
+    if(arbolP != NULL)
+    {
+        i = arbolAArreglo(tipo,arbolP,peliculas,i,dim,filtro,filtro2);
+    }
+    return i;
+}
+
 /* Funcion listar peliculas: recibe el tipo de lista, el arreglo de peliculas y su dimension por parametro. Lista las peliculas de la forma seleccionada y
 los guarda en el arreglo de peliculas hasta completarlo.
 
@@ -246,7 +344,7 @@ void listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno)
     {
         if(!lleno)
         {
-            arbolAArreglo(arbolP,peliculas,0,dim);
+            arbolAArreglo(0,arbolP,peliculas,0,dim,"",0);
         }
         switch(tipo)
         {
@@ -281,17 +379,6 @@ void listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno)
                 break;
             }
         }
-    }
-}
-
-void arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim)
-{
-    if(arbol && i < dim)
-    {
-        arbolAArreglo(arbol->izq,peliculas,i,dim);
-        peliculas[i] = arbol->p;
-        i++;
-        arbolAArreglo(arbol->der,peliculas,i,dim);
     }
 }
 
