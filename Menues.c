@@ -700,6 +700,7 @@ void menuAdministrarUsuarios()
     printf("\n4-Buscar usuario");
     printf("\n5-Listar usuarios");
     printf("\n6-Limpiar Arreglo de Listas");
+    printf("\n7-Recargar ADL");
 
     printf("\n\n0-Volver hacia atras");
     printf("\n\n\nEsperando opcion: ");
@@ -756,6 +757,12 @@ void menuAdministrarUsuarios()
         {
             encabezado("LISTA USUARIOS","Ver peliculas y series");
             limpiarArregloDeListas();
+            menuAdministrarUsuarios();
+        }
+        case 7:
+        {
+            encabezado("LISTA USUARIOS","Ver peliculas y series");
+            archivoUsuariosToADL(ARCHIVO_USUARIOS);
             menuAdministrarUsuarios();
         }
         case 0:
