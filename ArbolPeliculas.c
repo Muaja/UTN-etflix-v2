@@ -227,10 +227,10 @@ stPelicula peliculas[] - arreglo de peliculas conteniendo la informacion que des
 int dim - dimension del arreglo de peliculas. */
 void mostrarArregloPeliculas(stPelicula peliculas[], int i, int validos)
 {
-    if(i < validos) printf("\nID\tPelicula\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
+    if(i < validos) printf("\nID\tPelicula\t\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
     while(i < validos)
     {
-        printf("%i\t%s\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion/peliculas[i].reproducciones);
+        printf("%i\t%s\t\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion/peliculas[i].reproducciones);
         i++;
     }
     printf("\n\n");
