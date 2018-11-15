@@ -178,7 +178,7 @@
 	"Estructuras.h"
 	"Menues.h"
 
-1542307583 c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.h
+1542307933 c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -194,13 +194,13 @@
 	"ADLusuarios.h"
 	"Estructuras.h"
 
-1542306445 source:c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.c
+1542307749 source:c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.c
 	"ArbolPeliculas.h"
 
 1542305662 source:c:\users\muaja\documents\github\utn-etflix-v2\listapeliculas.c
 	"listaPeliculas.h"
 
-1542219376 source:c:\users\muaja\documents\github\utn-etflix-v2\menues.c
+1542307863 source:c:\users\muaja\documents\github\utn-etflix-v2\menues.c
 	"Menues.h"
 
 1541716105 source:c:\users\muaja\documents\github\utn-etflix-v2\pelisvistas.c
