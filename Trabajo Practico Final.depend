@@ -217,3 +217,62 @@
 	"ArbolPeliculas.h"
 	"ADLusuarios.h"
 
+1542318441 source:c:\users\alumno\documents\github\utn-etflix-v2\adlusuarios.c
+	"ADLusuarios.h"
+
+1542318441 c:\users\alumno\documents\github\utn-etflix-v2\adlusuarios.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+
+1542318441 c:\users\alumno\documents\github\utn-etflix-v2\estructuras.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1542318441 c:\users\alumno\documents\github\utn-etflix-v2\menues.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"ADLusuarios.h"
+	"listaPeliculas.h"
+	"ArbolPeliculas.h"
+
+1542318441 c:\users\alumno\documents\github\utn-etflix-v2\listapeliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+
+1542318441 c:\users\alumno\documents\github\utn-etflix-v2\arbolpeliculas.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	"Estructuras.h"
+	"listaPeliculas.h"
+
+1542318441 source:c:\users\alumno\documents\github\utn-etflix-v2\listapeliculas.c
+	"listaPeliculas.h"
+
+1542318441 source:c:\users\alumno\documents\github\utn-etflix-v2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Estructuras.h"
+	"Menues.h"
+	"ADLusuarios.h"
+	"listaPeliculas.h"
+	"ArbolPeliculas.h"
+	"ADLusuarios.h"
+
+1542318441 source:c:\users\alumno\documents\github\utn-etflix-v2\menues.c
+	"Menues.h"
+
+1542318678 source:c:\users\alumno\documents\github\utn-etflix-v2\arbolpeliculas.c
+	"ArbolPeliculas.h"
+
