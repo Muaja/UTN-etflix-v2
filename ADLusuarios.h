@@ -7,13 +7,12 @@
 #include "Menues.h"
 
 /* Funciones usuarios */
-int agregarPeliculaToUsuario(stCelda usuarios[],int val, int idUsuario, int idPelicula );
-void limpiarArregloDeListas(stCelda usuarios[], int val);
 
 stCelda * dimensionarUsuarios(stCelda usuarios[], int cant);
 stCelda * redimensionarUsuarios(stCelda usuarios[], int cant);
 void archivoUsuariosToADL(const char archivo[]);
 void ADLToArchivoUsuarios(const char archivo[]);
+void limpiarArregloDeListas();
 int cantidadUsuarios(const char archivo[]);
 int existeUsuario(char nombreUsuario[]);
 int altaUsuario();

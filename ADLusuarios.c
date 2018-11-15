@@ -809,3 +809,24 @@ void ADLToArchivoUsuarios(const char archivo[])
         }
     }
 }
+
+void limpiarArregloDeListas()
+{
+    encabezado("LIMPIAR ARREGLO DE LISTAS","ADMINISTRADOR");
+    if(val)
+    {
+        for(int i = 0; i < val; i++)
+        {
+            usuarios[i].listaPelis = borrarListaPeliculas(usuarios[i].listaPelis);
+        }
+        free(usuarios);
+        usuarios = realloc(usuarios, sizeof(stCelda *));
+        val = 0;
+        printf("\n\nArreglo de listas limpiado satisfactoriamente.\nPrecaucion al crear o editar usuarios para no sobrescribir el archivo.\n\n");
+    }
+    else
+    {
+        printf("\n\nTodavia no se han creado usuarios.\n\n");
+    }
+    system("pause");
+}
