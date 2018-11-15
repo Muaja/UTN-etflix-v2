@@ -733,11 +733,18 @@ void menuAdministrarUsuarios()
         case 3:
         {
             encabezado("MODIFICAR USUARIO","ADMINISTRADOR");
-            printf("\nIngrese el ID del usuario que desea modificar: ");
+
+            int dim = val;
+            stUsuario muestra[dim];
+            listarUsuarios(0, muestra, dim, usuarios, val);
+            mostrarUsuarios(muestra, dim);
+
+            printf("Ingrese el ID del usuario que desea modificar: ");
             scanf("%i", &idUsuario);
             while(idUsuario > val)
             {
                 printf("\nIngrese el ID del usuario que desea modificar (Error: El usuario no existe): ");
+                fflush(stdin);
                 scanf("%i", &idUsuario);
             }
             modificarUsuario(idUsuario, 1, usuarios, val);
