@@ -147,7 +147,7 @@
 1541196783 source:c:\users\alumno\desktop\trabajo practico final\listapeliculas.c
 	"listaPeliculas.h"
 
-1542217986 source:c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.c
+1542307477 source:c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.c
 	"ADLusuarios.h"
 
 1541715111 c:\users\muaja\documents\github\utn-etflix-v2\adlusuarios.h
@@ -178,7 +178,7 @@
 	"Estructuras.h"
 	"Menues.h"
 
-1542306432 c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.h
+1542307583 c:\users\muaja\documents\github\utn-etflix-v2\arbolpeliculas.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
