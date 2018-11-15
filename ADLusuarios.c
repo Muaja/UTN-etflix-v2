@@ -214,15 +214,17 @@ int modificarUsuario(int idUsuario, int acceso, stCelda usuarios[], int val)
             {
                 case 1:
                 {
+                    char nombre[15];
                     printf("\nIngrese el nuevo nombre de usuario: ");
                     fflush(stdin);
-                    gets(aux.nombreUsuario);
-                    while(existeUsuario(aux.nombreUsuario))
+                    gets(nombre);
+                    while(existeUsuario(nombre))
                     {
                         printf("\nIngrese el nuevo nombre del nuevo usuario (Error: El usuario ya existe): ");
                         fflush(stdin);
-                        gets(aux.nombreUsuario);
+                        gets(nombre);
                     }
+                    strcpy(aux.nombreUsuario, nombre);
                     break;
                 }
                 case 2:
