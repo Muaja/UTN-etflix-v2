@@ -45,6 +45,8 @@ nodoArbolPelicula * borrarNodoArbol(nodoArbolPelicula * arbol, int legajo);
 nodoArbolPelicula * borrarArbol(nodoArbolPelicula * arbol);
 nodoArbolPelicula * NMI(nodoArbolPelicula * arbol);
 nodoArbolPelicula * NMD(nodoArbolPelicula * arbol);
+void calificarPelicula(int idPelicula, int calificacion);
+float calificacionPelicula(int valoracion, int reproducciones);
 nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol, int balanceado);
 void arbolPelisAArchivo(const char archivo[], nodoArbolPelicula * arbol);
 void arbolPelisAArchivoR(FILE* archi, nodoArbolPelicula * arbol);

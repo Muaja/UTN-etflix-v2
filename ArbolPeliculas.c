@@ -117,7 +117,7 @@ void modificarPelicula(int idPelicula)
     printf("\n3-Genero: [%s]", aux->p.genero);
     printf("\n4-Pais: [%s]", aux->p.pais);
     printf("\n5-Anio: [%i]", aux->p.anio);
-    printf("\n6-Valoracion inicial: [%i]", aux->p.valoracion);
+    printf("\n6-Valoracion total: [%i]", aux->p.valoracion);
     printf("\n7-Clasificacion: [%i]", aux->p.pm);
     printf("\n8-URL: [%s]", aux->p.url);
 
@@ -230,7 +230,7 @@ void mostrarArregloPeliculas(stPelicula peliculas[], int i, int validos)
     if(i < validos) printf("\nID\tPelicula\t\tDirector\tGenero\t\tAnio\tPais\tPM\tValoracion\n");
     while(i < validos)
     {
-        printf("%i\t%s\t\t%s\t\t%s\t\t%i\t%s\t%i\t%i\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion/peliculas[i].reproducciones);
+        printf("%i\t%s\t\t%s\t\t%s\t\t%i\t%s\t%i\t%d\n",peliculas[i].idPelicula,peliculas[i].nombrePelicula,peliculas[i].director,peliculas[i].genero,peliculas[i].anio,peliculas[i].pais,peliculas[i].pm,peliculas[i].valoracion);
         i++;
     }
     printf("\n\n");
@@ -793,6 +793,23 @@ nodoArbolPelicula * NMD(nodoArbolPelicula * arbol)
         else rta = arbol;
     }
     return rta;
+}
+
+void calificarPelicula(int idPelicula, int calificacion)
+{
+    nodoArbolPelicula * buscado = buscarPelicula(arbolP, idPelicula);
+    if(buscado)
+    {
+        buscado->p.valoracion += calificacion;
+        buscado->p.reproducciones++;
+    }
+}
+
+float calificacionPelicula(int valoracion, int reproducciones)
+{
+    float calificacion = 0.0;
+    if(!reproducciones) calificacion = (float)valoracion/reproducciones;
+    return calificacion;
 }
 
 nodoArbolPelicula * archivoAArbolPelis(const char archivo[], nodoArbolPelicula * arbol, int balanceado)

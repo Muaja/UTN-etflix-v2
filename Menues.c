@@ -176,14 +176,17 @@ void menuCalificar(int idPelicula)
         {
             encabezado("CALIFIQUE LA PELICULA","USUARIO");
             int num;
-            printf("\nCalifica la película de 1 a 5: ");
+            printf("\nCalifica la pelicula de 1 a 5: ");
             scanf("%i", &num);
             while(num < 1 && num > 5)
             {
-                printf("\nCalifica la película de 1 a 5: ");
+                printf("\nCalifica la pelicula de 1 a 5: ");
+                fflush(stdin);
                 scanf("%i", &num);
             }
             calificarPelicula(idPelicula,num);
+            arbolPelisAArchivo(ARCHIVO_PELICULAS,arbolP);
+            nodoArbolPelicula * buscado = buscarPelicula(arbolP, idPelicula);
             printf("\n\nEl puntaje ha sido actualizado satisfactoriamente.\nMuchas gracias.\n\n");
             system("pause");
             menuPrincipal();

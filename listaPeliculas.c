@@ -194,24 +194,6 @@ void verPelicula(int idUsuario, int idPelicula)
     pelisVistasTOArchivo(ARCHIVO_PELISVISTAS);
 }
 
-void calificarPelicula(int idPelicula, int calificacion)
-{
-    nodoArbolPelicula * buscado = buscarPelicula(arbolP, idPelicula);
-    if(buscado)
-    {
-        buscado->p.reproducciones++;
-        buscado->p.valoracion += calificacion;
-    }
-}
-
-float calificacionPelicula(int idPelicula)
-{
-    float calificacion = 0;
-    nodoArbolPelicula * buscado = buscarPelicula(arbolP, idPelicula);
-    if(buscado) calificacion = (float)buscado->p.valoracion/buscado->p.reproducciones;
-    return calificacion;
-}
-
 int cantidadPelisVistas(const char archivo[])
 {
     int cantidad = 0;
