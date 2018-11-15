@@ -135,15 +135,17 @@ void modificarPelicula(int idPelicula)
         {
             case 1:
             {
+                char nombre[60]; //Variable local para comprobar nombre
                 printf("\nIngrese el nombre de la pelicula: ");
                 fflush(stdin);
-                gets(aux->p.nombrePelicula);
-                while(buscarNombre(arbolP,aux->p.nombrePelicula))
+                gets(nombre);
+                while(buscarNombre(arbolP,nombre))
                 {
                     printf("\nIngrese el nombre de la pelicula (Error: La pelicula ya existe): ");
                     fflush(stdin);
-                    gets(aux->p.nombrePelicula);
+                    gets(nombre);
                 }
+                strcpy(aux->p.nombrePelicula, nombre);
                 break;
             }
             case 2:
