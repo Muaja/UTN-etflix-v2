@@ -217,6 +217,284 @@ void modificarPelicula(int idPelicula)
     }
 }
 
+/* Funcion listar peliculas: recibe el tipo de lista, el arreglo de peliculas y su dimension por parametro. Lista las peliculas de la forma seleccionada y
+los guarda en el arreglo de peliculas hasta completarlo.
+
+int listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno)
+
+Parametros:
+int tipo - tipo de lista que queremos
+stPelicula peliculas[] - arreglo donde se cargan y se ordenan los registros
+int dim - tamaño del arreglo
+int lleno - indica si el arreglo ya tiene datos
+
+switch(tipo):
+    0-sin filtro
+    1-por titulo. (ordenado por seleccion)
+    2-por genero. (ordenado por insercion)
+    3-por pais
+    4-por valoracion.
+    5-por anio.
+    6-por clasificacion para mayores PM.
+*/
+void listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno)
+{
+
+    FILE *archi;
+    archi = fopen(ARCHIVO_PELICULAS,"rb");
+    if(archi != NULL)
+    {
+        if(!lleno)
+        {
+            arbolAArreglo(arbolP,peliculas,0,dim);
+        }
+        switch(tipo)
+        {
+            case 1:
+            {
+                ordenaArregloPeliculasSeleccionTitulo(peliculas,dim);
+                break;
+            }
+            case 2:
+            {
+                ordenaArregloPeliculasInsercionGenero(peliculas,dim);
+                break;
+            }
+            case 3:
+            {
+                ordenaArregloPeliculasSeleccionPais(peliculas,dim);
+                break;
+            }
+            case 4:
+            {
+                ordenaArregloPeliculasSeleccionValoracion(peliculas,dim);
+                break;
+            }
+            case 5:
+            {
+                ordenaArregloPeliculasSeleccionAnio(peliculas,dim);
+                break;
+            }
+            case 6:
+            {
+                ordenaArregloPeliculasSeleccionClasificacion(peliculas,dim);
+                break;
+            }
+        }
+    }
+}
+
+void arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim)
+{
+    if(arbol && i < dim)
+    {
+        arbolAArreglo(arbol->izq,peliculas,i,dim);
+        peliculas[i] = arbol->p;
+        i++;
+        arbolAArreglo(arbol->der,peliculas,i,dim);
+    }
+}
+
+int posMenorTituloPeliculas(stPelicula peliculas[], int pos, int cant)
+{
+
+    int i = pos+1;
+    int posMenor = pos;
+    char menor[30];
+    strcpy(menor, peliculas[pos].nombrePelicula);
+
+    while(i < cant)
+    {
+        if(strcmp(menor, peliculas[i].nombrePelicula) > 0)
+        {
+            strcpy(menor, peliculas[i].nombrePelicula);
+            posMenor = i;
+        }
+        i++;
+    }
+    return posMenor;
+}
+
+void ordenaArregloPeliculasSeleccionTitulo(stPelicula peliculas[], int cant)
+{
+    int i = 0;
+    int menor;
+    stPelicula aux;
+
+    while(i < cant)
+    {
+        menor = posMenorTituloPeliculas(peliculas, i, cant);
+        aux = peliculas[menor];
+        peliculas[menor] = peliculas[i];
+        peliculas[i] = aux;
+        i++;
+    }
+}
+
+int insertaPeliculaOrdenadoGenero(stPelicula peliculas[], int cant, stPelicula aux)
+{
+    int j = cant-1; // j es el subindice anterior
+    while(j >= 0 && strcmp(peliculas[j].genero,aux.genero) > 0) // corro los elementos para liberar el espacio necesario
+    {
+        peliculas[j+1] = peliculas[j];
+        j--;
+    }
+    peliculas[j+1] = aux; // inserto el elemento en el lugar indicado
+    return cant+1;
+}
+
+void ordenaArregloPeliculasInsercionGenero(stPelicula peliculas[], int cant)
+{
+    int i;
+    stPelicula aux;
+    for(i = 1; i < cant; i++) //empiezo por el segundo elemento hasta el final
+    {
+        aux = peliculas[i]; // guardo el elemento en aux
+        insertaPeliculaOrdenadoGenero(peliculas, i, aux);
+    }
+}
+
+int posMenorPaisPeliculas(stPelicula peliculas[], int pos, int cant)
+{
+
+    int i = pos+1;
+    int posMenor = pos;
+    char menor[30];
+    strcpy(menor, peliculas[pos].pais);
+
+    while(i < cant)
+    {
+        if(strcmp(menor, peliculas[i].pais) > 0)
+        {
+            strcpy(menor, peliculas[i].pais);
+            posMenor = i;
+        }
+        i++;
+    }
+    return posMenor;
+}
+
+void ordenaArregloPeliculasSeleccionPais(stPelicula peliculas[], int cant)
+{
+    int i = 0;
+    int menor;
+    stPelicula aux;
+
+    while(i < cant)
+    {
+        menor = posMenorPaisPeliculas(peliculas, i, cant);
+        aux = peliculas[menor];
+        peliculas[menor] = peliculas[i];
+        peliculas[i] = aux;
+        i++;
+    }
+}
+
+int posMayorValoracionPeliculas(stPelicula peliculas[], int pos, int cant)
+{
+
+    int i = pos+1;
+    int posMayor = pos;
+	int mayor = peliculas[pos].valoracion;
+
+    while(i < cant)
+    {
+        if(mayor < peliculas[i].valoracion)
+        {
+            mayor = peliculas[i].valoracion;
+            posMayor = i;
+        }
+        i++;
+    }
+    return posMayor;
+}
+
+void ordenaArregloPeliculasSeleccionValoracion(stPelicula peliculas[], int cant)
+{
+    int i = 0;
+    int mayor;
+    stPelicula aux;
+
+    while(i < cant)
+    {
+        mayor = posMayorValoracionPeliculas(peliculas, i, cant);
+        aux = peliculas[mayor];
+        peliculas[mayor] = peliculas[i];
+        peliculas[i] = aux;
+        i++;
+    }
+}
+
+int posMenorAnioPeliculas(stPelicula peliculas[], int pos, int cant)
+{
+
+    int i = pos+1;
+    int posMenor = pos;
+	int menor = peliculas[pos].anio;
+
+    while(i < cant)
+    {
+        if(menor > peliculas[i].anio)
+        {
+            menor = peliculas[i].anio;
+            posMenor = i;
+        }
+        i++;
+    }
+    return posMenor;
+}
+
+void ordenaArregloPeliculasSeleccionAnio(stPelicula peliculas[], int cant)
+{
+    int i = 0;
+    int menor;
+    stPelicula aux;
+
+    while(i < cant)
+    {
+        menor = posMenorAnioPeliculas(peliculas, i, cant);
+        aux = peliculas[menor];
+        peliculas[menor] = peliculas[i];
+        peliculas[i] = aux;
+        i++;
+    }
+}
+
+int posMenorClasificacionPeliculas(stPelicula peliculas[], int pos, int cant)
+{
+
+    int i = pos+1;
+    int posMenor = pos;
+	int menor = peliculas[pos].pm;
+
+    while(i < cant)
+    {
+        if(menor > peliculas[i].pm)
+        {
+            menor = peliculas[i].pm;
+            posMenor = i;
+        }
+        i++;
+    }
+    return posMenor;
+}
+
+void ordenaArregloPeliculasSeleccionClasificacion(stPelicula peliculas[], int cant)
+{
+    int i = 0;
+    int menor;
+    stPelicula aux;
+
+    while(i < cant)
+    {
+        menor = posMenorClasificacionPeliculas(peliculas, i, cant);
+        aux = peliculas[menor];
+        peliculas[menor] = peliculas[i];
+        peliculas[i] = aux;
+        i++;
+    }
+}
+
 void MostrarArbol(nodoArbolPelicula * arbol, int opcion)
 {
     switch(opcion)
@@ -504,13 +782,13 @@ nodoArbolPelicula * insertarNodoArbolBalanceado(nodoArbolPelicula * arbol, nodoA
 
 nodoArbolPelicula * rotarIzq(nodoArbolPelicula * arbol)
 {
+    nodoArbolPelicula * pivot = arbol->der;
     if(arbol->der)
     {
-        nodoArbolPelicula * pivot = arbol->der;
         arbol->der = pivot->izq;
         pivot->izq = arbol;
-        return pivot;
     }
+    return pivot;
 }
 
 nodoArbolPelicula * rotarDer(nodoArbolPelicula * arbol)

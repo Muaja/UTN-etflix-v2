@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "Estructuras.h"
 #include "listaPeliculas.h"
 
@@ -12,6 +13,20 @@ nodoArbolPelicula * insertarNodoArbol(nodoArbolPelicula * arbol, nodoArbolPelicu
 stPelicula cargaPelicula();
 void altaPelicula();
 void modificarPelicula(int idPelicula);
+void listarPeliculas(int tipo, stPelicula peliculas[], int dim, int lleno);
+void arbolAArreglo(nodoArbolPelicula * arbol, stPelicula peliculas[], int i, int dim);
+int posMenorTituloPeliculas(stPelicula peliculas[], int pos, int cant);
+void ordenaArregloPeliculasSeleccionTitulo(stPelicula peliculas[], int cant);
+int insertaPeliculaOrdenadoGenero(stPelicula peliculas[], int cant, stPelicula aux);
+void ordenaArregloPeliculasInsercionGenero(stPelicula peliculas[], int cant);
+int posMenorPaisPeliculas(stPelicula peliculas[], int pos, int cant);
+void ordenaArregloPeliculasSeleccionPais(stPelicula peliculas[], int cant);
+int posMenorValoracionPeliculas(stPelicula peliculas[], int pos, int cant);
+void ordenaArregloPeliculasSeleccionValoracion(stPelicula peliculas[], int cant);
+int posMenorAnioPeliculas(stPelicula peliculas[], int pos, int cant);
+void ordenaArregloPeliculasSeleccionAnio(stPelicula peliculas[], int cant);
+int posMenorClasificacionPeliculas(stPelicula peliculas[], int pos, int cant);
+void ordenaArregloPeliculasSeleccionClasificacion(stPelicula peliculas[], int cant);
 void MostrarArbol(nodoArbolPelicula * arbol, int opcion);
 void MostrarArbolPreorder(nodoArbolPelicula * arbol);
 void MostrarArbolInorder(nodoArbolPelicula * arbol);
