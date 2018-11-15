@@ -6,7 +6,7 @@ void encabezado(char titulo[], char acceso[])
     printf("\n\t\t\t\t\t\t\t UTN-etflix\n\n");
     printf("\t\t\t\t\t\t   %s\n", acceso);
     printf("\n------------------------------------------------------------------------------------------------------------------------");
-    printf("\n\t\t\t\t\t\t       %s",titulo);
+    printf("\n\t\t\t\t\t\t      %s",titulo);
     printf("\n------------------------------------------------------------------------------------------------------------------------\n");
 }
 
@@ -224,40 +224,54 @@ void menuCalificar(int idPelicula)
 void mirandoPelicula(int idPelicula)
 {
     nodoArbolPelicula * nombre = buscarPelicula(arbolP,idPelicula);
-    encabezado(nombre->p.nombrePelicula,"USUARIO");
+    encabezado(nombre->p.nombrePelicula,nombre->p.url);
     reproductor();
-
+    if(strstr(nombre->p.url,"http") != NULL) // Si la pelicula cuenta con url se abre en el navegador
+    {
+        char cmd[64];
+        strcpy(cmd,"START ");
+        strcat(cmd,nombre->p.url);
+        system(cmd);
+    }
     printf("\n\n");
     system("pause");
 }
 
 void peliculasRecomendadas(int idUsuario)
 {
-    if(!arbolP || !buscarUsuario(usuarios,val,idUsuario)) printf("Todavia no se han creado peliculas. O todavia el usuario no esta registrado.");
-    int dim = nodosArbol(arbolP), validos = 0;
-    if(usuarios[idUsuario-1].listaPelis)
+    encabezado("PELICULAS RECOMENDADAS","MEJORES PELICULAS");
+    if(!arbolP || !buscarUsuario(usuarios,val,idUsuario))
     {
-
-        nodoListaPelicula * lista = usuarios[idUsuario-1].listaPelis;
-        while(lista->sig)
-        {
-            stPelicula peliculas[dim];
-            validos = consultaPeliculas(2,lista->p.genero,0,peliculas,dim);
-            if(validos)
-            {
-                validos = listarPeliculas(4,peliculas,validos,dim,1);
-                mostrarArregloPeliculas(peliculas,validos,2); // Muestra las primeras 2 de cada genero ultimamente visto.
-                lista = (nodoListaPelicula *)lista->sig;
-                validos = 0;
-            }
-        }
+        printf("\n\nTodavia no se han creado peliculas. O todavia el usuario no esta registrado.");
+        system("pause");
+        menuPrincipal();
     }
     else
     {
+        int dim = nodosArbol(arbolP);
         stPelicula peliculas[dim];
-        // Se muestran las primeras 10 peliculas mejor valoradas ordenadas de mayor a menor
-        validos = listarPeliculas(4,peliculas,0,10,0);
-        mostrarArregloPeliculas(peliculas,validos,10);
+        int validos = listarPeliculas(4, peliculas, 0, dim, 0);
+        mostrarArregloPeliculas(peliculas,0,validos);
+
+        int idPelicula = 0;
+        printf("\n\n0-Volver al menu");
+        printf("\n\nEsperando opcion: ");
+        scanf("%i", &idPelicula);
+        while(idPelicula < 0 || idPelicula > validos)
+        {
+            printf("\n\nEsperando opcion (Error: Esa pelicula no existe): ");
+            scanf("%i", &idPelicula);
+        }
+        if(!idPelicula)
+        {
+            menuPrincipal();
+        }
+        else
+        {
+            verPelicula(sesion,idPelicula);
+            mirandoPelicula(idPelicula);
+            menuCalificar(idPelicula);
+        }
     }
 }
 
@@ -355,7 +369,7 @@ void menuListarPeliculas(int dim, int acceso)
             stPelicula peliculas[dim];
             encabezado("LISTAR PELICULAS","Ver peliculas y series");
             int validos = listarPeliculas(opcion, peliculas, 0, dim, 0);
-            mostrarArregloPeliculas(peliculas,validos,dim);
+            mostrarArregloPeliculas(peliculas,0,validos);
             system("pause");
             menuListarPeliculas(dim,acceso);
         }
@@ -464,7 +478,7 @@ void menuBuscarPelicula(int dim, int acceso)
             if(cant > 0)
             {
                 printf("\nSe encontraron un total de %i peliculas.\n\n", cant);
-                mostrarArregloPeliculas(peliculas,cant,dim);
+                mostrarArregloPeliculas(peliculas,0,cant);
                 system("pause");
                 menuBuscarPelicula(dim,acceso);
             }
