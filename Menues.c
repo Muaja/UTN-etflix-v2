@@ -246,7 +246,7 @@ void peliculasRecomendadas(int idUsuario)
             if(validos)
             {
                 validos = listarPeliculas(4,peliculas,validos,dim,1);
-                mostrarPeliculas(peliculas,2); // Muestra las primeras 2 de cada genero ultimamente visto.
+                mostrarArregloPeliculas(peliculas,validos,2); // Muestra las primeras 2 de cada genero ultimamente visto.
                 lista = (nodoListaPelicula *)lista->sig;
                 validos = 0;
             }
@@ -256,8 +256,8 @@ void peliculasRecomendadas(int idUsuario)
     {
         stPelicula peliculas[dim];
         // Se muestran las primeras 10 peliculas mejor valoradas ordenadas de mayor a menor
-        listarPeliculas(4,peliculas,0,10,0);
-        mostrarPeliculas(peliculas,10);
+        validos = listarPeliculas(4,peliculas,0,10,0);
+        mostrarArregloPeliculas(peliculas,validos,10);
     }
 }
 
@@ -354,8 +354,8 @@ void menuListarPeliculas(int dim, int acceso)
             if(dim == 0) dim = nodosArbol(arbolP);
             stPelicula peliculas[dim];
             encabezado("LISTAR PELICULAS","Ver peliculas y series");
-            listarPeliculas(opcion, peliculas, 0, dim, 0);
-            mostrarPeliculas(peliculas, dim);
+            int validos = listarPeliculas(opcion, peliculas, 0, dim, 0);
+            mostrarArregloPeliculas(peliculas,validos,dim);
             system("pause");
             menuListarPeliculas(dim,acceso);
         }
@@ -464,7 +464,7 @@ void menuBuscarPelicula(int dim, int acceso)
             if(cant > 0)
             {
                 printf("\nSe encontraron un total de %i peliculas.\n\n", cant);
-                mostrarPeliculas(peliculas,cant);
+                mostrarArregloPeliculas(peliculas,cant,dim);
                 system("pause");
                 menuBuscarPelicula(dim,acceso);
             }
@@ -685,6 +685,7 @@ void menuAdministrarUsuarios()
     printf("\n3-Modificar los datos de un usuario");
     printf("\n4-Buscar usuario");
     printf("\n5-Listar usuarios");
+    printf("\n6-Limpiar Arreglo de Listas");
 
     printf("\n\n0-Volver hacia atras");
     printf("\n\n\nEsperando opcion: ");
@@ -736,6 +737,12 @@ void menuAdministrarUsuarios()
         {
             encabezado("LISTA USUARIOS","Ver peliculas y series");
             menuListarUsuarios(0,1);
+        }
+        case 6:
+        {
+            encabezado("LISTA USUARIOS","Ver peliculas y series");
+            limpiarArregloDeListas();
+            menuAdministrarUsuarios();
         }
         case 0:
         {
