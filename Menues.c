@@ -815,11 +815,13 @@ void menuAdministrarPeliculas()
         case 3:
         {
             encabezado("MODIFICAR PELICULA","ADMINISTRADOR");
-            printf("\nIngrese el ID de la pelicula que desea modificar:\n");
+            MostrarArbolInorder(arbolP);
+            printf("\n\nIngrese el ID de la pelicula que desea modificar: ");
             scanf("%i", &idPelicula);
             while(!buscarPelicula(arbolP,idPelicula))
             {
                 printf("\nIngrese el ID de la pelicula que desea modificar (Error: La pelicula no existe): ");
+                fflush(stdin);
                 scanf("%i", &idPelicula);
             }
             modificarPelicula(idPelicula);
